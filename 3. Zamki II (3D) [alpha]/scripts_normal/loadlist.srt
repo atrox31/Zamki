@@ -1,0 +1,80 @@
+//INICJACJA MENU
+ini_open('game.ini');
+global.hd=ini_read_real('graph','hd',1);
+global.anim_texture=ini_read_real('graph','anim_texture',1);
+global.partic=ini_read_real('graph','partic',2);
+global.anizotrop=ini_read_real('graph','filtrowanie_anizotropowe',1);
+global.master=ini_read_real('audio','master',100);
+global.music=ini_read_real('audio','music',70);
+global.background_sound=ini_read_real('audio','background_sound',1);
+ini_close();
+execute_string(ArtSkrypt('system')); console_add('system...OK');
+execute_string(ArtSkrypt('interface')); console_add('interface...OK');
+execute_string(ArtSkrypt('kamera')); console_add('kamera...OK');
+execute_string(ArtSkrypt('mapa')); console_add('mapa...OK');
+execute_string(ArtSkrypt('unit')); console_add('unit...OK');
+execute_string(ArtSkrypt('mils')); console_add('mils...OK');
+stan=text('%load02%');console_add('ok');
+global.pole_lista_guzik=ArtSprite( "pole_lista_strzalka" , 1 , 1 , 1 , 0 , 0 )
+global.button[1]=ArtSprite( "NORMprzycisk_menu" , 1 , 1 , 1 , 0 , 0 )
+global.button[2]=ArtSprite( "DISTprzycisk_menu" , 1 , 1 , 1 , 0 , 0 )
+global.button[3]=ArtSprite( "FOCUprzycisk_menu" , 1 , 1 , 1 , 0 , 0 )
+global.button[4]=ArtSprite( "CLICprzycisk_menu" , 1 , 1 , 1 , 0 , 0 )
+global.menu_bc=ArtSprite( "menu_background" , 1 , 0 , 1 , 0 , 0 )
+global.s_mana_sparkle=ArtSprite( "mana_sparkle" , 1 , 1 , 1 , 5 , 5 );
+global.ground1=ArtSprite( 'grass', 6 , 0 , 0 , 0 , 0 );
+global.ground2=ArtSprite( 'dirt', 6 , 0 , 0 , 0 , 0 );
+global.water[1]=ArtSprite( 'woda', 15 , 0 , 1 , 0 , 0 );
+global.water[2]=ArtSprite( 'beznazwy', 15 , 0 , 0 , 0 , 0 );
+global.water[3]=ArtSprite( 'pole_mana', 15 , 0 , 0 , 0 , 0 );
+global.water[0]=ArtSprite( 'woda2', 0 , 1 , 1 , 0 , 0 );
+global.road[0]=ArtSprite( 'brick', 1 , 0 , 0 , 0 , 0 );
+global.road[1]=ArtSprite( 'HDbrick', 1 , 0 , 0 , 0 , 0 );
+global.s_select=ArtSprite( 'select', 1 , 0 , 0 , 0 , 0 );
+global.frame=ArtSprite( 'frame', 1 , 0 , 0 , 0 , 0 );
+global.watermark[0]=ArtSprite( 'watermark', 1 , 1 , 1 , 0 , 0 );
+global.watermark[1]=ArtSprite( 'animwatermark', 1 , 1 , 1 , 138 , 138 );
+global.s_interface=ArtSprite( 'interface' , 1 , 0 , 0 , 0 , 0 );
+global.s_mana=ArtSprite( 'mana' , 1 , 0 , 0 , 0 , 0 );
+global.s_mana2=ArtSprite( 'mana2' , 1 , 0 , 0 , 0 , 0 );
+global.self1[0]=ArtSprite( 'self1_stand' , 60 , 1 , 0 , 0 , 0 );
+global.self1[1]=ArtSprite( 'self1_atak' , 60 , 1 , 0 , 0 , 0 );
+global.self1[2]=ArtSprite( 'self1_walk' , 60 , 1 , 0 , 0 , 0 );
+global.snek1[0]=ArtSprite( 'snek2_stand' , 60 , 1 , 0 , 0 , 0 );
+global.snek1[1]=ArtSprite( 'snek2_atak' , 60 , 1 , 0 , 0 , 0 );
+global.snek1[2]=ArtSprite( 'snek2_walk' , 60 , 1 , 0 , 0 , 0 );
+global.krew[0]=ArtSprite( 'krew_low', 5 , 0 , 0 , 50 , 50 );
+global.inter_unit[0]=ArtSprite( 'inter_uint', 1 , 0 , 0 , 0 , 0 );
+global.inter_unit[1]=ArtSprite( 'inter_uint_h', 1 , 0 , 0 , 0 , 0 );
+global.cursor=ArtSprite( 'cursor', 1 , 0 , 0 , 0 , 0 );
+global.poc_szczala=ArtSprite( 'szczala', 1 , 0 , 0 , 0 , 0 );
+global.zamek_test=d3d_model_create();
+d3d_model_load(global.zamek_test,"modele\zamek_test.gmmod");
+global.tree_model[1]=d3d_model_create();
+d3d_model_load(global.tree_model[1],"modele\tree.gmmod");
+global.tree_tex[1]=ArtSprite('tree_tex',1,1,1,0,0);
+global.tree_model[2]=d3d_model_create();
+d3d_model_load(global.tree_model[2],"modele\bad_tree.gmmod");
+global.tree_tex[2]=ArtSprite('bad_tree',1,1,1,0,0);
+execute_string(ArtSkrypt('tree'))
+global.grasskemp=d3d_model_create();
+d3d_model_load(global.grasskemp,"modele\grasskemp.gmmod");
+global.s_grasskemp=ArtSprite('milgrass',1,1,1,0,0);
+global.baner[0]=d3d_model_create();
+d3d_model_load(global.baner[0],"modele\baner_podstawa.gmmod");
+global.s_baner[0]=ArtSprite('beznazwy',1,1,1,0,0);
+global.most_model=d3d_model_create();
+d3d_model_load(global.most_model,"modele\most.gmmod");
+global.s_most=ArtSprite('most',1,1,1,0,0);
+stan=text('%load03%');
+globalvar f_menu; f_menu = font_add_sprite(ArtSprite('font',94,true,1,0,0) , ord(" "), false, -8);
+stan=text('%load04%');//muziki
+global.s_menu_theme=XmusicLoad( "audio\theme.wav" )
+stan=text('%load05%');//dzwięku
+global.s_klik=XsoundLoad("audio\guzik.wav" )
+stan=text('%load06%');
+room_speed=60;
+instance_create(room_width/2,room_height/2,global.logo);
+instance_create(0,0,global.menu);
+console_add('gotowe!');
+instance_destroy();

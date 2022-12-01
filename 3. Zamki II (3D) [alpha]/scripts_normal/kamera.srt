@@ -1,0 +1,51 @@
+//kamera.srt
+global.kamera=object_add();
+object_event_add(global.kamera,ev_create,0,'
+  depth=10001;
+  d3d_start();    
+  global.d3d=true;  
+  draw_set_color(c_white);
+  
+  texture_set_interpolation(global.anizotrop);  
+  
+  d3d_set_hidden(true);
+  d3d_set_lighting(false);
+  d3d_set_culling(true);
+  d3d_set_shading(false)
+ 
+	x=10;
+	y=10;
+	z=300;
+	
+	xto=0;
+	yto=30;
+	zto=-26;
+	
+	up=5;
+	
+	//mienne do plynnego ruchu
+	x_=x;
+	y_=y;
+	
+');
+
+object_event_add(global.kamera,ev_step,ev_step_normal,'
+if (window_views_mouse_get_x()<20) { if (x_<global.mapa_wys*64) x_+=20};
+if (window_views_mouse_get_x()>global.resolutionx-20){if (x_>0) x_-=20};
+
+if (window_views_mouse_get_y()<20){if (y_<(global.mapa_szer*64-200)) y_+=20};
+if (window_views_mouse_get_y()>global.resolutiony-20){if (y_>0-30) y_-=20};
+
+//if (mouse_wheel_up()){z+=5}
+//if (mouse_wheel_down()){z-=5}
+
+if (x_>x) { x+=abs(x_-x)*0.1 }else{ x-=abs(x_-x)*0.1 };
+if (y_>y) { y+=abs(y_-y)*0.1 }else{ y-=abs(y_-y)*0.1 };
+');
+
+object_event_add(global.kamera,ev_draw,0,'
+d3d_set_lighting(false);
+//d3d_set_projection(x, y, z, x+xto, y+yto, z+zto, 0, up, 1)
+d3d_set_projection_ext(x, y, z, x+xto, y+yto, z+zto, 0, 0, 1, 60, global.resolutionx/global.resolutiony, 1, 16000);
+
+');

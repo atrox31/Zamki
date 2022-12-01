@@ -1,0 +1,156 @@
+// default.srt
+/*
+  PIERWSZY WCZYTANY PLIK SILNIKA
+    STANOWI RDZEŃ CAŁEJ APLIKACJI
+       POWIEN WCZYTYWAĆ NAJPOTRZEBNIEJSZE SPRITY I DZIWIĘCKI
+          DEMOART 2013 ATROXSTUDIO   
+
+	||PROJEKT: Zamki II
+	||WERSJA SILNIKA: 1.0
+	||AUTORZY: Krystian 'Atrox' Rzepiński
+	||DATA ROZPOCZĘCIA: 07-11-2013
+	
+	
+	 draw_set_halign ( fa_wyrownanie ) fa_left, fa_center, fa_right
+*/ 
+//////////////////////////////////////////////////////////////////////
+global.ver="alpha 0.3"
+global.debug=false;
+global.error=0;
+konsola.autosave=true;
+set_application_title("Zamki II v"+string(global.ver))
+console_add("Zamki II "+string(global.ver));
+console_add(date_date_string(date_current_date()));
+console_add("inicjalizacja...");
+
+ini_open('game.ini');
+ArtLangIni(ini_read_string('game','lang','pl'));
+global.name=ini_read_string('game','player_name','');
+global.last_ip=ini_read_string('game','last_ip','127.0.0.1');
+global.fullscreen=ini_read_real('graph','fullscreen',1);
+global.resolutionx=ini_read_real('graph','resolutionx',1280);
+global.resolutiony=ini_read_real('graph','resolutiony',800);
+ini_close();
+/////////////////////////////BIBLIOTEKI/////////////////////////////////////////
+// Naglowek
+XaudioHeader()
+// Inicjujacja biblioteki
+XaudioInit('XeAudiere.dll')
+
+////////////////////////////////////////
+for (i=1; i<=parameter_count(); i+=1)
+{
+switch (parameter_string(i))
+{
+ case "-debug_mode":
+ global.debug=true;
+ break;
+ 
+};
+}; 
+
+//INICJACJA OKNA
+ global.menu_room=room_add()
+room_set_width( global.menu_room,global.resolutionx);//1024);//1280);
+room_set_height( global.menu_room,global.resolutiony);//768);//1024) ;
+room_set_background_color( global.menu_room,c_white,1);
+window_set_fullscreen(global.fullscreen);
+
+global.w[8]=1920;
+global.h[8]=1080;
+
+global.w[7]=1680;
+global.h[7]=1050;
+
+global.w[6]=1600;
+global.h[6]=900;
+
+global.w[5]=1440;
+global.h[5]=900;
+
+global.w[4]=1280;
+global.h[4]=1024;
+
+global.w[3]=1280;
+global.h[3]=800;
+
+global.w[2]=1280;
+global.h[2]=720;
+
+global.w[1]=1024;
+global.h[1]=768;
+
+global.menu=object_add();
+object_event_add(global.menu,ev_step,ev_step_normal,ArtSkrypt("menu_step"));
+object_event_add(global.menu,ev_create,0,ArtSkrypt("menu_create"));
+object_event_add(global.menu,ev_draw,0,ArtSkrypt("menu_draw"));
+object_event_add(global.menu,ev_mouse,ev_global_left_press,ArtSkrypt("menu_klik"));  
+
+object_event_add(konsola,ev_other,ev_game_end,"
+XaudioFree()
+"); // czyszczenie bibliotek
+
+global.wczytane=0;
+room_set_code( global.menu_room,"if !(global.wczytane){global.loadlist=ArtSkrypt('loadlist'); instance_create(0,0,global.load)}else{instance_create(0,0,global.menu)}; room_speed=60;") 
+room_goto( global.menu_room)
+
+//WCZYTYWANIA PODSTAWOWE
+global.logo_sprite=ArtSprite( 'default_logo' , 1 , 0 , 1 , 200 , 200 );
+
+//LOGO
+global.logo=object_add();
+object_event_add(global.logo,ev_step,ev_step_normal,"if (znika=0){image_alpha+=0.902; if (image_alpha>=1){znika=1;}}else{image_alpha-=0.901; if (image_alpha<0){global.wczytane=1;instance_destroy(); }}");
+object_event_add(global.logo,ev_create,0,"image_alpha=0; znika=0; sprite_index=global.logo_sprite;");
+object_event_add(global.logo,ev_destroy,0,"sprite_delete(global.logo_sprite); object_delete(global.load); object_delete(global.logo); ");
+//////////////////////////////////////OBIEKT WCZYTYWANIA
+global.load=object_add();
+object_event_add(global.load,ev_create,0,"
+	stan='Inicjacja...'
+	tablicen[]=global.loadlist; //tablica stringów przechowująca obiekty do wczytania
+	linia=0; //akutualna linia, potrzebne w stepie
+	
+	linia_max=string_count(chr(13) + chr(10), tablicen)
+	var i,str,j;
+	for (i=1; i<=linia_max; i+=1)
+	{ 
+	 str='';
+	 j=' ';
+	 while !( j=chr(10) ) do // 
+	 { 
+	  str+=j;
+	  j=string_copy(tablicen,1,1); 
+	  tablicen=string_delete(tablicen,1,1);  
+	 }; 	 
+	 skrypt[i]=str;
+	};
+	
+	xx=room_width/2;
+	yy=room_height/2;
+
+	while (true)
+	{
+	execute_string(skrypt[linia]);
+	linia+=1; 
+	if (linia>linia_max) break;
+	screen_redraw();
+	};
+
+"); 
+object_event_add(global.load,ev_step,ev_step_normal,"
+	global.loadlist='';
+	instance_destroy()//object_delete(global.load);
+");
+//DRAW
+object_event_add(global.load,ev_draw,0,"
+draw_set_color(c_black);
+
+draw_rectangle(xx-250,yy-20,xx-250+(500*(linia/linia_max)),yy+20,0)
+draw_rectangle(xx-250,yy-20,xx+250,yy+20,1)
+
+draw_set_color(c_gray);
+draw_set_halign ( fa_center )
+draw_text(xx,yy-20,string(linia)+' na '+string(linia_max)+'('+string(linia/linia_max*100)+'%)#('+string(text('%load00%'))+string(stan)+')')
+
+");
+if (global.error=1) {game_end() };
+instance_destroy();

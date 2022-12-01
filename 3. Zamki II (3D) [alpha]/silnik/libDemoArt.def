@@ -1,0 +1,4 @@
+; dlltool --base-file C:\Users\ATROX_~1\AppData\Local\Temp\cca05636.base --output-exp DemoArt.exp --dllname DemoArt.dll --output-def libDemoArt.def --exclude-symbol=DllMainCRTStartup@12 --def C:\Users\ATROX_~1\AppData\Local\Temp\cca05636.def --output-lib libDemoArt.a
+EXPORTS
+	GMText @ 1
+	GMAdd @ 2

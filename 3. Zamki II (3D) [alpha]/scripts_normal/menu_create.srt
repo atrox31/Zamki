@@ -1,0 +1,241 @@
+// menu_create.srt
+image_speed=0;
+if (global.wczytane=0)
+{
+/////////////// INFO
+// global.wczytane odpowiada za to czy gra jest wczytana a logo wyœwietlone ( czyli czy wszystko gotowe )
+///////////////
+//zmienne menu
+global.opcje=0;
+//do rysowania
+
+global.ww=1;
+global.ekran=1;
+global.gameroom=room_add();
+room_set_background_color(global.gameroom,c_black,1);
+cursor_sprite=global.cursor;
+}// to co wyzej bedzie wykonywane tylko przy uruchomieniu gry
+room_set_width(global.gameroom,global.resolutionx);
+room_set_height(global.gameroom,global.resolutiony);
+//teksty
+XmusicPlay(global.s_menu_theme);
+opcje_text[1,1]=string(global.resolutionx)+'x'+string(global.resolutiony);
+if (global.fullscreen) { opcje_text[1,2]=text('%opctak%'); }else{ opcje_text[1,2]=text('%opcnie%'); };
+if (global.hd) { opcje_text[1,3]=text('%opcwys%'); }else{ opcje_text[1,3]=text('%opclow%'); };
+if (global.anim_texture) { opcje_text[1,4]=text('%opcjon%'); }else{ opcje_text[1,4]=text('%opcoff%'); };
+if (global.partic=2) { opcje_text[1,5]=text('%opcwys%'); }else{ if (global.partic=0) { opcje_text[1,5]=text('%opclow%');}else{ opcje_text[1,5]=text('%opcmed%') } };
+
+opcje_text[2,1]=string(global.master)+"%";
+opcje_text[2,2]=string(global.music)+"%";
+if (global.background_sound) { opcje_text[2,3]=text('%opcjon%'); }else{ opcje_text[2,3]=text('%opcoff%'); }
+
+opcje_text[3,1]="d";
+opcje_text[3,2]="d";
+
+opcje_text[4,1]="d";
+opcje_text[4,2]="d";
+opcje_text[4,3]="d";
+opcje_text[4,4]="d";
+///////////////////////////////////////////////// WCZYTANE I GOTOWE DO DZIA£ANIA ///////////////////////////////////////////////
+// system menu -> wybór graczy
+gracz_imie[1]=global.name
+gracz_imie[2]=text('%pojwol%')
+gracz_imie[3]=text('%pojwol%')
+gracz_imie[4]=text('%pojwol%')
+gracz_imie[5]=text('%pojwol%')
+gracz_imie[6]=text('%pojwol%')
+
+xx=335
+yy=20
+//menu rasy
+rasa[0]=text('%rasa00%');
+rasa[1]=text('%rasa01%');
+rasa[2]=text('%rasa02%');
+rasa[3]=text('%rasa03%');
+rasa[4]=text('%rasa04%');
+rasa[5]=text('%rasa05%');
+rasa[6]=text('%rasa06%');
+
+kolor[1]=make_color_rgb(100,255,100);
+kolor[2]=make_color_rgb(100,100,255);
+kolor[3]=make_color_rgb(100,100,100);
+kolor[4]=make_color_rgb(255,255,100);
+kolor[5]=make_color_rgb(255,100,100);
+kolor[6]=make_color_rgb(50,255,255);
+
+// gracz [ 1, 0 ^ 1 ^ 2 ] 0-nic 1-gracz 2-SI
+gracz[1,1]=1
+gracz[1,2]=2
+gracz[1,3]=0
+gracz[1,4]=2
+gracz[1,5]=2
+gracz[1,6]=0
+// gracz [ 2, 1-6 ] numer rasy
+gracz[2,1]=1
+gracz[2,2]=2
+gracz[2,3]=3
+gracz[2,4]=4
+gracz[2,5]=5
+gracz[2,6]=6
+
+wybrany=0
+////////////////////////////////////////////////////XmusicPlay(global.s_menu_theme)
+
+////////MENU
+b11=instance_create(10,10,global.button);
+b11.enable=1;
+b11.tekst=text('%menu11%');
+b11.if_click="
+_komunikat=instance_create(0,0,global.komunikat);
+_komunikat.czas=fps*1.5;
+_komunikat.tresc='Nie dostêpne w wersji alpha'; 
+ ";
+b11.ekran=1;
+b11.visible=true;
+
+b12=instance_create(10,10+1*140+10,global.button);
+b12.enable=1;
+b12.tekst=text('%menu12%');
+b12.if_click="global.ekran=2; ";
+b12.ekran=1;
+b12.visible=true;
+
+b13=instance_create(10,10+2*140+10,global.button);
+b13.enable=0;
+b13.tekst=text('%menu13%');
+b13.if_click=" ";
+b13.ekran=1;
+b13.visible=true;
+
+b14=instance_create(10,10+3*140+10,global.button);
+b14.enable=1;
+b14.tekst=text('%menu14%');
+b14.if_click="global.ekran=4;";
+b14.ekran=1;
+b14.visible=true;
+
+b15=instance_create(10,10+4*140+10,global.button);
+b15.enable=1;
+b15.tekst=text('%menu15%');
+b15.if_click="game_end()";
+b15.ekran=1;
+b15.visible=true;
+/////////////////////////////////////////POJEDYNEK////////////////
+b21=instance_create(10,10,global.button);
+b21.enable=true;
+b21.tekst=text('%menu21%');
+b21.if_click="global.opcje=5; global.menu.bstart_potyczka1.visible=true;";
+b21.ekran=2;
+b21.visible=true;
+
+b22=instance_create(10,10+1*140+10,global.button);
+b22.enable=false;
+b22.tekst=text('%menu22%');
+b22.if_click="show_message('kampania'); ";
+b22.ekran=2;
+b22.visible=true;
+
+b23=instance_create(10,10+2*140+10,global.button);
+b23.enable=true;;
+b23.tekst=text('%menu23%');
+b23.if_click="global.ekran=1; global.opcje=0;";
+b23.ekran=2;
+b23.visible=true;
+/////////////////////////////////////////KAMPANIA////////////////
+b31=instance_create(10,10,global.button);
+b31.enable=1;
+b31.tekst=text('%menu31%');
+b31.if_click="
+_komunikat=instance_create(0,0,global.komunikat);
+_komunikat.czas=fps*4;
+_komunikat.tresc='Nie dostêpne w wersji aplha';
+_komunikat.guzik=true; 
+  ";
+b31.ekran=3;
+b31.visible=true;
+
+b32=instance_create(10,10+1*140+10,global.button);
+b32.enable=1;
+b32.tekst=text('%menu32%');
+b32.if_click="
+_komunikat=instance_create(0,0,global.komunikat);
+_komunikat.czas=fps*4;
+_komunikat.tresc='Nie dostêpne w wersji alpha'; 
+  ";
+b32.ekran=3;
+b32.visible=true;
+
+b33=instance_create(10,10+2*140+10,global.button);
+b33.enable=1;
+b33.tekst=text('%menu33%');
+b33.if_click="global.ekran=1; ";
+b33.ekran=3;
+b33.visible=true;
+/////////////////////////////////////////Ustawienia////////////////
+b41=instance_create(10,10,global.button);
+b41.enable=1;
+b41.tekst=text('%opcj10%');
+b41.if_click="global.opcje=1;";
+b41.ekran=4;
+b41.visible=true;
+
+b42=instance_create(10,10+1*140+10,global.button);
+b42.enable=1;
+b42.tekst=text('%opcj20%');
+b42.if_click="global.opcje=2; ";
+b42.ekran=4;
+b42.visible=true;
+
+b43=instance_create(10,10+2*140+10,global.button);
+b43.enable=1;
+b43.tekst=text('%opcj30%');
+b43.if_click="global.opcje=3; ";
+b43.ekran=4;
+b43.visible=true;
+
+b44=instance_create(10,10+3*140+10,global.button);
+b44.enable=1;
+b44.tekst=text('%opcj40%');
+b44.if_click="global.opcje=4";
+b44.ekran=4;
+b44.visible=true;
+
+b45=instance_create(10,10+4*140+10,global.button);
+b45.enable=1;
+b45.tekst=text('%menu45%');
+b45.if_click="global.ekran=1; global.opcje=0;";
+b45.ekran=4;
+b45.visible=true;
+
+bstart_potyczka1=instance_create(700,500,global.button);
+bstart_potyczka1.enable=true;
+bstart_potyczka1.tekst=text('%start1%');
+bstart_potyczka1.if_click="
+global.mapa_gra='potyczka_standard';
+global.menu.bstart.enable=true;
+";
+bstart_potyczka1.ekran=2;
+bstart_potyczka1.visible=true;
+
+bstart=instance_create(400,200,global.button);
+bstart.enable=false;
+bstart.tekst=text('%start0%');
+bstart.if_click="
+console_add('game starting... ');
+room_set_code(global.gameroom,ArtSkrypt('inipotyczka'))
+room_goto(global.gameroom);
+";
+bstart.ekran=2;
+bstart.visible=true;
+
+bstart_potyczka2=instance_create(400,500,global.button);
+bstart_potyczka2.enable=true;
+bstart_potyczka2.tekst=text('%start2%');
+bstart_potyczka2.if_click="
+global.mapa_wys=20;
+global.mapa_szer=10;
+global.mapa_gra='random';
+global.menu.bstart.enable=true;
+";
+bstart_potyczka2.ekran=2;
+bstart_potyczka2.visible=true;

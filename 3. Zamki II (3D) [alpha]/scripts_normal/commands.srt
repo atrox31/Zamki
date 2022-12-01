@@ -1,0 +1,149 @@
+//commands.srt
+switch (argument[0])
+{
+	case "exec":
+	execute_string(argument[1]);
+	break;
+	
+	case "ai":
+		global._interface.ai=argument[1];
+		global._interface.alarm[0]=1;
+		console_add("AI ENABLED");
+		console_add("LEVEL: "+string(argument[1])+"sec");
+	break;
+	
+	case "aa":
+
+	break;
+	
+	case "zapiszmape":
+		var plik;
+		
+		plik=file_text_open_write("maps/potyczka_standard.map");
+		//typ mapy
+		file_text_write_string(plik,"maptype:potyczka;");
+		file_text_writeln(plik);
+		// wysokosc mapy
+		file_text_write_real(plik,global.mapa_wys);
+		file_text_writeln(plik);
+		//szerokosc mapy
+		file_text_write_real(plik,global.mapa_szer);
+		file_text_writeln(plik);
+		//mapa wysokosci terenu
+		file_text_write_string(plik,ds_grid_write(global.mapa_wysokosci));
+		file_text_writeln(plik);
+		//sciezki mapy
+		file_text_write_string(plik,ds_grid_write(global.mapa_sciezka));
+		file_text_writeln(plik);
+		//obiekty
+		file_text_write_string(plik,ds_list_write(global.mapa_obiektow));
+		file_text_writeln(plik);
+		
+		file_text_close(plik);
+		console_add("mapa zapisana");
+	break;
+	
+	case "menu":
+	d3d_end();
+	room_goto(global.menu_room);
+	break;
+	
+	case "exit":
+	game_end();
+	break;
+	
+	case "temp":
+	clipboard_set_text(temp_directory);
+	break;
+	
+	case "restart":
+	if (argument[1]='a') random_set_seed(-1744488783);
+	room_restart();
+	break;
+	
+	case "show_objects":
+		var i;
+	console_add("Lista obiektów:"+string(ds_list_size(global.mapa_obiektow)/4));
+	for (i=0; i<=ds_list_size(global.mapa_obiektow)-4 i+=4;)
+	{
+	console_add("object_add["+string(i)+"]:(id:"+string(ds_list_find_value(global.mapa_obiektow,i))+ "| x:"+string(ds_list_find_value(global.mapa_obiektow,i+1))+ "| y:"+string(ds_list_find_value(global.mapa_obiektow,i+2))+")");
+	};
+	console_save();
+	break;
+	
+	case "pause":
+	draw_set_halign ( fa_center );
+	draw_set_font(f_arial);
+	draw_set_color(c_black);
+	draw_rectangle(global.resolutionx/2-100,global.resolutiony/2-10,global.resolutionx/2+100,global.resolutiony/2+30,0);
+	draw_set_color(c_green);
+	draw_rectangle(global.resolutionx/2-100,global.resolutiony/2-10,global.resolutionx/2+100,global.resolutiony/2+30,1)
+	draw_set_color(c_white);
+	draw_text(global.resolutionx/2,global.resolutiony/2,"wstrzymano gre");
+	screen_refresh();
+	keyboard_wait();
+	break;
+	
+	case "show_error":
+	if (error_occurred )
+	{ 
+		var _tmp,i,j,ilosc_wierszy;
+		i=0;
+		ilosc_wierszy=0;
+		_tmp[0]="";
+		do
+		{		
+			if (string_copy(error_last,i,1)=chr(13)) 
+			{ 
+				ilosc_wierszy+=1;
+				_tmp[ilosc_wierszy]="";
+			}else{
+				_tmp[ilosc_wierszy]+=string_copy(error_last,i,1)
+			};
+			i+=1;
+		}
+		until (i=string_length(error_last));
+		j=ilosc_wierszy;
+		repeat (ilosc_wierszy)
+		{
+		console_add(_tmp[j]); 
+		j-=1;
+		};
+	}else{
+		console_add("There is no error appear");
+	}
+	break;
+	
+	case "camera":
+		console_add("xto:"+string(xto)+" | yto:"+string(yto)+" | zto:"+string(zto)+" | z:"+string(z));	
+		break;
+
+	case "cls":
+	repeat (16) console_add('')
+	break;
+	
+	case "hide":
+	visible=false;
+	break;
+	
+	case "autosave":
+	autosave=!autosave;
+	if (autosave)
+	console_add("Automatyczny zapis do pliku 'console.log' włączony") else console_add("Automatyczny zapis konsoli wyłączony") 
+	break;
+	
+	case "set_res":
+	if global.ww<8
+	{  global.ww+=1; }else{ global.ww=1};
+	global.resolutionx=global.w[ global.ww];
+	global.resolutiony=global.h[ global.ww];
+	room_set_width( global.menu_room,global.resolutionx);
+	room_set_height( global.menu_room,global.resolutiony);
+	console_add(string(global.resolutionx)+'x'+string(global.resolutiony));
+	room_restart();
+	break
+	
+	default:
+	console_add('Komenda '+argument[0]+' nie odnaleziona');
+	break;
+};

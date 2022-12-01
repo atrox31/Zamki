@@ -1,0 +1,199 @@
+//system.srt
+global.button=object_add();
+object_event_add(global.button,ev_step,ev_step_normal,"
+//step
+if (enable)and(ekran=global.ekran){ 
+if (mouse_x>x)and(mouse_x<x+300)and(mouse_y>y)and(mouse_y<y+120) { if not (stan=4) stan=3 }else{ stan=1 }
+}
+");
+object_event_add(global.button,ev_create,0,"
+//create
+ stan=1;
+ image_speed=0;
+");
+
+object_event_add(global.button,ev_alarm,0,"
+//alarm[0];
+stan=1;
+  if (mouse_x>x)and(mouse_x<x+300)and(mouse_y>y)and(mouse_y<y+120) {execute_string(if_click)};
+");
+
+object_event_add(global.button,ev_draw,0,"
+//draw
+if (global.wczytane)and(ekran=global.ekran)
+{
+ if (enable)and(visible)
+ {
+    draw_sprite(global.button[stan],1,x,y); 
+ }else
+   { draw_sprite(global.button[2],1,x,y); };
+   // text
+   draw_set_font(f_menu);
+   draw_set_halign ( fa_center )
+   draw_set_color(c_black);
+   draw_text(x+150,y+42,tekst);
+}
+");
+object_event_add(global.button,ev_mouse,ev_global_left_press,"
+//klik
+if (global.wczytane)and(ekran=global.ekran)
+{
+ for (i=1 i<=5; i+=1;)
+ {
+ }
+ if (enable)and(visible)
+ {
+	
+	if (mouse_x>x)and(mouse_x<x+300)and(mouse_y>y)and(mouse_y<y+120) { stan=4; 	if (global.master>0) { XsoundPlay(global.s_klik); }};
+ }
+}
+");
+object_event_add(global.button,ev_mouse,ev_global_left_release,"
+//klik
+if (global.wczytane)and(ekran=global.ekran)
+{
+ if (enable)and(visible)
+ {
+	alarm[0]=1;
+ }
+}
+");
+console_add('system/buttons...OK');
+global.komunikat=object_add();
+object_event_add(global.komunikat,ev_create,0,'alpha=1; czas=fps*4; tresc=""; wymaga_klawisz=false; guzik=false; guzik_tekst="Ok";');
+object_event_add(global.komunikat,ev_step,ev_step_normal,'if (czas>0) { if not (guzik) czas-=1 }else{ alpha-=0.1; if (alpha<0) {instance_destroy()}}');
+object_event_add(global.komunikat,ev_draw,0,'
+	draw_set_halign ( fa_center );
+	draw_set_alpha(alpha);
+	draw_set_font(f_arial);
+	draw_set_color(c_black);
+	draw_rectangle(global.resolutionx/2-(100+(string_length(tresc)*3)),global.resolutiony/2-10,global.resolutionx/2+100+(string_length(tresc)*3),global.resolutiony/2+30+(guzik*80),0);
+	draw_set_color(c_green);
+	draw_rectangle(global.resolutionx/2-(100+(string_length(tresc)*3)),global.resolutiony/2-10,global.resolutionx/2+100+(string_length(tresc)*3),global.resolutiony/2+30+(guzik*80),1)
+	draw_set_color(c_white);
+	
+	if (guzik)
+	{
+		draw_set_color(c_black);
+		draw_rectangle(global.resolutionx/2-(30),global.resolutiony/2+(guzik*80),global.resolutionx/2+(30),global.resolutiony/2+20+(guzik*80),0);
+		
+		if (window_views_mouse_get_x()>global.resolutionx/2-(30))&&(window_views_mouse_get_y()>global.resolutiony/2+(guzik*80))&&(window_views_mouse_get_x()<global.resolutionx/2+(30))&&(window_views_mouse_get_y()<global.resolutiony/2+20+(guzik*80))
+		{
+			draw_set_alpha(alpha*0.1);
+			draw_set_color(c_white);
+			draw_rectangle(global.resolutionx/2-(30),global.resolutiony/2+(guzik*80),global.resolutionx/2+(30),global.resolutiony/2+20+(guzik*80),0);
+			draw_set_alpha(alpha);
+		};
+		draw_set_color(c_green);
+		draw_rectangle(global.resolutionx/2-(30),global.resolutiony/2+(guzik*80),global.resolutionx/2+(30),global.resolutiony/2+20+(guzik*80),1)
+		draw_set_color(c_white);
+		draw_text(global.resolutionx/2,global.resolutiony/2+(guzik*80)+2,guzik_tekst);
+	};
+	
+	draw_text(global.resolutionx/2,global.resolutiony/2,tresc);
+	if (wymaga_klawisz)
+	{
+		wymaga_klawisz=false;
+		screen_redraw();
+		keyboard_wait();
+		czas=0;
+	}
+');
+object_event_add(global.komunikat,ev_mouse,ev_global_left_press,'if (window_views_mouse_get_x()>global.resolutionx/2-(30))&&(window_views_mouse_get_y()>global.resolutiony/2+(guzik*80))&&(window_views_mouse_get_x()<global.resolutionx/2+(30))&&(window_views_mouse_get_y()<global.resolutiony/2+20+(guzik*80)){czas=0;};');
+console_add('system/komunikaty...OK');
+
+global.pocisk=object_add();
+object_event_add(global.pocisk,ev_create,0,'
+	//			poc.direction=point_direction(x,y,cel_ataku.x,cel_ataku.y);
+	//			poc.cx=cel_ataku.x;
+	//			poc.cy=cel_ataku.y;
+	//			poc.speed=1;
+	//			poc.sprite_index=poc_sprite;
+//				poc.cel=cel_ataku;
+//				poc.atak=atak;
+//				poc.obszar=obszar;
+//				poc.z=z;
+//				poc.zasieg=zasieg;
+	z=0;
+	zz=0;
+	zdolny_do_ataku=true;
+	depth=round(y/64);
+');
+object_event_add(global.pocisk,ev_alarm,0,'
+
+');
+object_event_add(global.pocisk,ev_step,ev_step_normal,'
+// gdy za daleko
+if (abs(cx-x)+(abs(cy-y))>64*4) { zdolny_do_ataku=false; speed=0; zz-=30;}else
+{
+speed+=0.1;
+};
+zz=ds_grid_get(global.mapa_wysokosci,round(cx/64),round(cy/64))*20;
+//animacja
+image_index+=image_speed;
+if (sprite_get_number(variable_global_get(sprite_index))>image_number) { image_index=0; };
+
+// poruszanie sie
+		if (z<zz) {z+=abs(zz-z)/room_speed};
+		if (z>zz) {z-=abs(zz-z)/room_speed};	
+	//kiniec poruszania
+		if (abs(cx-x)<=2)and(abs(cy-y)<=2)// osiągną cel
+		{
+			if (zdolny_do_ataku)
+			{
+				if (instance_exists(cel))
+				{
+					cel.hp-=atak; 
+					zdolny_do_ataku=false;	
+					speed=0;
+				};
+			};
+		};	
+		if (zdolny_do_ataku=false)
+		{
+			if (image_alpha>0)
+			{
+				image_alpha-=0.1; 
+			}else{ instance_destroy(); };
+		};
+		
+		if not ((y<global.mapa_szer*64)&&(y>0)&&(x>0)&&(x<global.mapa_wys*64))
+				{ 	instance_destroy(); };
+		
+');
+object_event_add(global.pocisk,ev_draw,0,'
+
+d3d_transform_set_identity();
+
+d3d_transform_add_rotation_z(point_direction(x,y,cx,cy));
+d3d_transform_add_translation(x,y,z) 
+d3d_draw_wall(10,0,10,-10,0,-10,sprite_get_texture(sprite_index,0),1,1)
+d3d_transform_set_identity();
+
+');
+console_add('system/pocisk...OK');
+
+global.o_zamek=object_add();
+object_event_add(global.o_zamek,ev_create,0,'
+depth=round(y/64);
+alarm[0]=1
+z=0;
+angle=0;
+');
+object_event_add(global.o_zamek,ev_alarm,0,'
+console_add("x:"+string(x)+"y:"+string(y)+"z:"+string(z));
+');
+object_event_add(global.o_zamek,ev_step,ev_step_normal,'
+');
+object_event_add(global.o_zamek,ev_draw,0,'
+//if not ((x/64>round(global._kamera.x/64)-(12))and(x/64<round(global._kamera.x/64)+(12))) { exit; }else
+{
+d3d_transform_set_identity();
+d3d_transform_add_translation(-x,-y,-z);
+d3d_transform_add_rotation_z(angle);
+d3d_transform_add_translation(x,y,z);
+d3d_model_draw(global.zamek_test,x,y,z,sprite_get_texture(global.frame,0));
+d3d_transform_set_identity();
+}
+');
+console_add("system/zamek...OK");

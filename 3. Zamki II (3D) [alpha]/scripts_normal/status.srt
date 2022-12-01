@@ -1,0 +1,652 @@
+ code='nek_1'
+ nazwa='Zjawa';
+ graf=snek1;
+ koszt=195;
+ koszt_ulepszenia=1000;
+ szybkosc=70;         
+ zasieg=3;          
+ pocisk=s_poc1;       
+ r_ataku=2;      
+ zycie=120;      Si�a ataku  
+ atak=10;             
+ czas_ataku=1;        
+ czar='';
+ cele=1;
+ chodzenie='lewitacja'
+ 
+ code='nek_2'
+ nazwa='Zombi'
+ graf=snek2;
+ koszt=280;
+ koszt_ulepszenia=2000
+ szybkosc=40;         
+ zasieg=1;          
+ pocisk=null;            
+ r_ataku=1;                 
+ zycie=220;           
+ atak=22;             
+ czas_ataku=1;        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='nek_3'
+ nazwa='Nekromanta';
+ graf=snek3;
+ koszt=410;
+ koszt_ulepszenia=3000;
+ szybkosc=50;         
+ zasieg=5;          
+ pocisk=null;           
+ r_ataku=3;                 
+ zycie=290;          
+ atak=10;           
+ czas_ataku=2;        
+ czar='nek_lecz';
+ cele=0;
+ chodzenie='lewitacja'
+
+ code='nek_4'
+ nazwa='Złe oko'
+ graf=snek4
+ koszt=670;
+ koszt_ulepszenia=4000
+ szybkosc=80         
+ zasieg=4          
+ pocisk=s_poc2            
+ r_ataku=2                 
+ zycie=300           
+ atak=55             
+ czas_ataku=2.5        
+ czar='';
+ cele=1;
+ chodzenie='lewitacja'
+
+ code='nek_5'
+ nazwa='Kosa'
+ graf=snek5
+ koszt=1300;
+ koszt_ulepszenia=5000
+ szybkosc=45         
+ zasieg=5         
+ pocisk=s_poc4            
+ r_ataku=3                 
+ zycie=410           
+ atak=36            
+ czas_ataku=5        
+ czar='nek_plaga'
+ cele=1;
+ chodzenie='pieszo'
+
+ code='nek_6'
+ nazwa='Plugawiec'
+ graf=snek6
+ koszt=1450;
+ koszt_ulepszenia=6000
+ szybkosc=50         
+ zasieg=1          
+ pocisk=null            
+ r_ataku=2                 
+ zycie=980         
+ atak=68             
+ czas_ataku=3        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='nek_7'
+ nazwa='Arhont'
+ graf=snek7
+ koszt=1800;
+ koszt_ulepszenia=7000
+ szybkosc=90         
+ zasieg=5          
+ pocisk=s_poc3            
+ r_ataku=2                 
+ zycie=1250         
+ atak=80             
+ czas_ataku=6        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='kra_1'
+ nazwa='Górnik'
+ graf=skra1
+ koszt=190;
+ koszt_ulepszenia=1000
+ szybkosc=46         
+ zasieg=1          
+ pocisk=null            
+ r_ataku=1                 
+ zycie=180          
+ atak=12             
+ czas_ataku=1        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='kra_2'
+ nazwa='Goblin'
+ graf=skra2
+ koszt=330;
+ koszt_ulepszenia=2000
+ szybkosc=90         
+ zasieg=1          
+ pocisk=s_poc1           
+ r_ataku=3                 
+ zycie=100          
+ atak=252           
+ czas_ataku=0.5        
+ czar='kra_bum' 
+  cele=1;
+ chodzenie='pieszo'
+
+ code='kra_3'
+ nazwa='Strzelec'
+ graf=skra3
+ koszt=480 ;
+ koszt_ulepszenia=1000
+ szybkosc=50          
+ zasieg=4           
+ pocisk=s_poc5          
+ r_ataku=2                 
+ zycie=220          
+ atak=52           
+ czas_ataku=2.8        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='kra_4'
+ nazwa='Golem'
+ graf=skra4
+ koszt=610 ;
+ koszt_ulepszenia=1000
+ szybkosc=30          
+ zasieg=1           
+ pocisk=null           
+ r_ataku=1                 
+ zycie=550          
+ atak=44           
+ czas_ataku=1.5        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='kra_5'
+ nazwa='Grzebacz'
+ graf=skra5
+ koszt=610 ;
+ koszt_ulepszenia=1000
+ szybkosc=40          
+ zasieg=1           
+ pocisk=null           
+ r_ataku=1                 
+ zycie=550          
+ atak=44           
+ czas_ataku=1.5        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+  
+ code='kra_6'
+ nazwa='Czarodziej'
+ graf=skra6
+ koszt=750 ;
+ koszt_ulepszenia=1000
+ szybkosc=50          
+ zasieg=5           
+ pocisk=null           
+ r_ataku=3                 
+ zycie=220          
+ atak=52           
+ czas_ataku=1.1        
+ czar='kra_met'
+ cele=1;
+ chodzenie='lewitacja'
+ 
+ code='kra_7'
+ nazwa='Legenda'
+ graf=skra7
+ koszt=1100 ;
+ koszt_ulepszenia=1000
+ szybkosc=60          
+ zasieg=1           
+ pocisk=null           
+ r_ataku=1                 
+ zycie=1000          
+ atak=68           
+ czas_ataku=2.3        
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='elf_1'
+ nazwa='Łucznik'
+ graf=self1
+ koszt=210
+ koszt_ulepszenia=1000
+ szybkosc=50        
+ zasieg=3          
+ pocisk=s_poc6          
+ r_ataku=2               
+ zycie=125        
+ atak=12           
+ czas_ataku=1.3       
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='elf_2'
+ nazwa='Drzewiec'
+ graf=self2
+ koszt=300
+ koszt_ulepszenia=1000
+ szybkosc=50        
+ zasieg=1          
+ pocisk=null          
+ r_ataku=1               
+ zycie=200        
+ atak=30           
+ czas_ataku= 1.6      
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='elf_3'
+ nazwa='Strażnik'
+ graf=self3
+ koszt=470
+ koszt_ulepszenia=1000
+ szybkosc=60        
+ zasieg=1          
+ pocisk=null          
+ r_ataku=1               
+ zycie=320        
+ atak=28           
+ czas_ataku=0.6       
+ czar='';
+ cele=1;
+ chodzenie='lewitacja'
+ 
+ code='elf_4'
+ nazwa='Żuczek'
+ graf=self4
+ koszt=560
+ koszt_ulepszenia=1000
+ szybkosc=50        
+ zasieg=3          
+ pocisk=s_poc8          
+ r_ataku=2               
+ zycie=490        
+ atak=37           
+ czas_ataku=1.0       
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='elf_5'
+ nazwa='Czarna wiedźma'
+ graf=self5
+ koszt=710
+ koszt_ulepszenia=1000
+ szybkosc=68        
+ zasieg=3          
+ pocisk=s_poc9          
+ r_ataku=3               
+ zycie=510        
+ atak=40           
+ czas_ataku=0.9       
+ czar='elf_wys';
+  cele=1;
+ chodzenie='lewitacja'
+
+ code='elf_6'
+ nazwa='Jednorożec'
+ graf=self6
+ koszt=890
+ koszt_ulepszenia=1000
+ szybkosc=70        
+ zasieg=1          
+ pocisk=null          
+ r_ataku=1               
+ zycie=730        
+ atak=72           
+ czas_ataku=2       
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='elf_7'
+ nazwa='Zmora'
+ graf=self7
+ koszt=1300
+ koszt_ulepszenia=1000
+ szybkosc=70        
+ zasieg=5          
+ pocisk=s_poc7          
+ r_ataku=3               
+ zycie=1300        
+ atak=60           
+ czas_ataku=1.7       
+ czar='elf_zmora';
+ cele=1;
+ chodzenie='lewitacja'
+
+ code='pie_1'
+ nazwa='Chochlik'
+ graf=spie1
+ koszt=220
+ koszt_ulepszenia=1000
+ szybkosc=64        
+ zasieg=1          
+ pocisk=null          
+ r_ataku=1               
+ zycie=112        
+ atak=8           
+ czas_ataku=0.7       
+ czar='';
+ cele=1;
+ chodzenie='lewitacja'
+
+ code='pie_2'
+ nazwa='Ogar'
+ graf=spie2
+ koszt=310
+ koszt_ulepszenia=1000
+ szybkosc=50        
+ zasieg=1          
+ pocisk=null          
+ r_ataku=1               
+ zycie=112        
+ atak=20           
+ czas_ataku=1      
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+
+ code='pie_3'
+ nazwa='Wysłannik'
+ graf=spie3
+ koszt=460
+ koszt_ulepszenia=1000
+ szybkosc=64        
+ zasieg=5          
+ pocisk=s_poc10          
+ r_ataku=2               
+ zycie=230        
+ atak=45           
+ czas_ataku=1.5      
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+ 
+ code='pie_4'
+ nazwa='Chowaniec'
+ graf=spie4
+ koszt=520
+ koszt_ulepszenia=1000
+ szybkosc=64        
+ zasieg=4          
+ pocisk=s_poc10          
+ r_ataku=3               
+ zycie=320        
+ atak=45           
+ czas_ataku=1.5      
+ czar='pie_ogien';
+ cele=1;
+ chodzenie='pieszo'
+ 
+ code='pie_4'
+ nazwa='Ochydziec'
+ graf=spie4
+ koszt=640
+ koszt_ulepszenia=1000
+ szybkosc=80        
+ zasieg=14          
+ pocisk=null          
+ r_ataku=1               
+ zycie=480        
+ atak=62           
+ czas_ataku=2      
+ czar='';
+ cele=1;
+ chodzenie='lewitacja'
+ 
+ code='pie_5'
+ nazwa='5'
+ graf=spie4
+ koszt=640
+ koszt_ulepszenia=1000
+ szybkosc=80        
+ zasieg=14          
+ pocisk=null          
+ r_ataku=550        
+ atak=62           
+ czas_ataku=2      
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+ 
+ code='pie_6'
+ nazwa='6'
+ graf=spie4
+ koszt=640
+ koszt_ulepszenia=1000
+ szybkosc=80        
+ zasieg=1          
+ pocisk=null          
+ r_ataku=1               
+ zycie=780        
+ atak=62           
+ czas_ataku=2      
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+ 
+ code='pie_7'
+ nazwa='Sługa'
+ graf=spie7
+ koszt=640
+ koszt_ulepszenia=1000
+ szybkosc=84        
+ zasieg=1          
+ pocisk=null          
+ r_ataku=1               
+ zycie=850        
+ atak=70           
+ czas_ataku=2.5      
+ czar='';
+ cele=1;
+ chodzenie='pieszo'
+ 
+ 
+ /*
+ 
+  code='o_pie_6'
+ nazwa='Sługa'
+ koszt=720;
+ szybkosc=82         
+ zasieg=64          
+ pocisk=0            
+ r_ataku=1                 
+ zycie=666         
+ atak=60             
+ czas_ataku=2.5        
+ czar='';
+ if o_interface.gracz_jednostka_up[6]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana');
+ }
+ if argument1=2 { return(koszt) }
+
+ 
+
+ 
+ // stwory
+ code='o_stw_1'
+ nazwa='Wijec'
+ koszt=180;
+ szybkosc=60          
+ zasieg=64           
+ pocisk=0             
+ r_ataku=1                  
+ zycie=120           
+ atak=9              
+ czas_ataku=1.3         
+ czar='';
+ if o_interface.gracz_jednostka_up[1]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana');
+ }
+ if argument1=2 { return(koszt) }
+
+ code='o_stw_2'
+ nazwa='Mutant'
+ koszt=230 ;
+ szybkosc=60          
+ zasieg=64           
+ pocisk=0             
+ r_ataku=1                  
+ zycie=100           
+ atak=17              
+ czas_ataku=1         
+ czar='';
+ if o_interface.gracz_jednostka_up[2]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana');
+ }
+ if argument1=2 { return(koszt) }
+
+ code='o_stw_3'
+ nazwa='Nornik'
+ koszt=410;
+ szybkosc=64          
+ zasieg=64*3           
+ pocisk=0             
+ r_ataku=6                 
+ zycie=310           
+ atak=40              
+ czas_ataku=1.5         
+ czar='stw_nor'
+ if o_interface.gracz_jednostka_up[3]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana#Atakuje kolcami 3 wrogów naraz');
+ }
+ if argument1=2 { return(koszt) }
+
+ code='o_stw_4'
+ nazwa='Plujnik'
+ koszt=500 ;
+ szybkosc=64          
+ zasieg=256           
+ pocisk=s_poc7             
+ r_ataku=2                  
+ zycie=420           
+ atak=25              
+ czas_ataku=1.4         
+ czar='';
+ if o_interface.gracz_jednostka_up[4]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana');
+ }
+ if argument1=2 { return(koszt) }
+
+ code='o_stw_5'
+ nazwa='Pożeracz'
+ koszt=560 ;
+ szybkosc=64          
+ zasieg=64           
+ pocisk=0             
+ r_ataku=6                  
+ zycie=200           
+ atak=0              
+ czas_ataku=1         
+ czar='stw_klon'
+ if o_interface.gracz_jednostka_up[5]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana#Zamienia się w jednostke wroga');
+ }
+ if argument1=2 { return(koszt) }
+
+ code='o_stw_6'
+ nazwa='Potwór'
+ koszt=1200 ;
+ szybkosc=64          
+ zasieg=64           
+ pocisk=0             
+ r_ataku=1                  
+ zycie=500           
+ atak=42              
+ czas_ataku=1.3         
+ czar='';
+ if o_interface.gracz_jednostka_up[6]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana');
+ }
+ if argument1=2 { return(koszt) }
+
+ 
+ 
+ 
+// AAAAAAAAAAAAAAAAAA
+ default=
+ nazwa='unkown'
+ koszt=1;
+ szybkosc=50         
+ zasieg=1          
+ pocisk=s_poc1            
+ r_ataku=2                 
+ zycie=1       
+ atak=1             
+ czas_ataku=1        
+ czar='';
+ if o_interface.gracz_jednostka_up[1]=1
+ {
+  atak+=atak*0.25
+  zycie+=zycie*0.25
+ }
+ if argument1=1
+ {
+ return(string(nazwa)+'#Siła ataku= '+string(atak)+'#Życie= '+string(zycie)+'#Koszt= '+string(koszt)+' mana');
+ }
+ if argument1=2 { return(koszt) }
+}
+*/
+}

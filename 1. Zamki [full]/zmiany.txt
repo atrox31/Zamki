@@ -1,0 +1,50 @@
+1.0 ALPHA -> 1.1 BETA
+- dodano t³o pod pole bitwy
+- naprawiono ataki paru jednostek
+- naprawiono tryb 2 graczy
+- drobna poprawa SI ( jeszcze pracujê )
+- drobna poprawa grafiki
+- dodano deszcz
+
+1.1 BETA -> 1.2 
+- naprawiono krytyczny b³¹d gdy 2 gracz chcia³ graæ nekropoli¹
+- naprawiono œciany deszczu
+- Po¿eracz - stwory / naprawiono moc klonowania
+- poprawiono grafike t³a
+- drobna poprawa grafiki jednostek / zamków
+- dodano animacje zamków
+- silniejsze SI
+- zmiany w balansie 
+	Nekropolia	regeneracja many 30 -> 32
+	nazwa		koszt
+	Zjawa		200 	->	195
+	Zombi		300		->	280
+	Nekromanta	450		->	410
+	Z³e oko		700		->	670
+	Wóz zarazy	1200	->	1000
+	Arhont		2500	->	1800
+- nowa rasa: Piek³o
+- guzik 'losowa rasa 'zamieniony na ' rasa Piek³o '
+
+1.2 -> 1.2b
+- klawisz 'm' w³¹cza/wy³¹cza muzykê
+- naprawiono b³êdy graficzne: 
+ *brak grafiki goblina
+ *brak grafiki Legendy
+- zmiany kosztów jednostek rasy Piek³o
+- naprawiono b³êdy ataku jednostek: 
+  - klon / rasa stwory
+  - nekromanta / rasa nekropolia
+- SI mo¿e graæ ras¹ piek³o
+- wprowadziæ ulepszenia: 
+ - regeneracji many ( 1 000 * poziom ) 20 poziomów \ +2% za ulepszenie
+ - ataku/¿ycia dla jednostek ( koszt * 10 ) - 1 poziom \ +25%
+- ataki zadaj¹ losowe obra¿enia ( od -10% do 10%  )
+- zmiana umiejêtnoœci Legenda - 5% szansy na zadanie 3x wiêksze obra¿enia
+
+1.2b -> 1.2c FINAL
+- Naprawiono b³¹d zamku piek³a u bota/2 gracza
+- naprawiono ul. regeneracji many
+- naprawiono b³¹d kosztu z³ota
+- 3 stwór ( nornik ) rasy stwory atakuje zamek
+- 5 jednostka rasy piek³o , naprawiono opis

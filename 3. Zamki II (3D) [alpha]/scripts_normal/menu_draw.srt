@@ -1,0 +1,133 @@
+// menu_draw
+if (global.wczytane=1)
+{
+ draw_set_color(c_white);
+ draw_set_alpha(1);  
+
+ draw_sprite_ext(global.menu_bc,1,0,0,global.resolutionx/1280,global.resolutiony/1024,0,c_white,1);
+ draw_set_halign ( fa_left ); 
+    switch (global.opcje)
+   {
+
+  	case 1:
+	case 2:
+	case 3:
+	case 4:
+		draw_set_alpha(0.2); draw_rectangle(320,25,room_width-300,555,0); 
+		draw_set_color(c_black);
+		var i;
+		i=0;
+		do
+		{
+			
+			if (mouse_x>330)and(mouse_x<room_width-310)and(mouse_y>40+(i*30))and(mouse_y<60+(i*30))and(i>0) 
+			{ 
+				draw_set_alpha(0.3); 
+				draw_rectangle(330,40+(i*30),room_width-310,40+((i+1)*30),0)
+			};
+			draw_set_alpha(1);
+			draw_set_halign ( fa_left );
+			draw_text(330,40+(i*30),string(text("%opcj"+string(global.opcje)+string(i)+"%")));
+			if (i>0)
+			{
+				draw_set_halign ( fa_right ); 
+				draw_text(room_width-310,40+(i*30),opcje_text[global.opcje,i]);
+			};
+			i+=1;
+		} until (ord(text(string("%opcj"+string(global.opcje)+string(i)+"%")))=0)
+	break;
+	
+	
+	case 5: // pojedynek - standardowy 
+		draw_set_color(c_black)
+		draw_set_alpha(1)
+		draw_set_font(f_menu)
+		draw_text(0,0,string(xx)+' '+string(yy))
+		
+		// ramki zespołów
+		draw_set_color(c_black)
+		draw_set_alpha(0.4)
+		draw_rectangle(xx-25,yy+(1*64)-36,xx+600+25,yy+(3*64)+32+16-1,0)
+		draw_rectangle(xx-25,yy+(3*64)+32+16+1,xx+600+25,yy+(6*64)+32+36,0)
+		
+		draw_set_alpha(1)
+		for (i=1; i<=6; i+=1)
+		{
+			// zaznaczenie
+			if (mouse_x>xx) and (mouse_y>yy+(i*64)) and (mouse_x<xx+500) and (mouse_y<yy+(i*64)+32)
+			{
+			draw_set_alpha(0.3)
+			draw_set_color(c_white)
+			draw_rectangle(xx,yy+(i*64),xx+500,yy+(i*64)+32,0)
+			}
+			
+			// tabelka
+			draw_set_alpha(1)
+			draw_set_color(c_black)
+			draw_rectangle(xx,yy+(i*64),xx+500,yy+(i*64)+32,1)    
+			
+			// kolor gracza
+			draw_set_alpha(1)
+			draw_set_color(c_black)
+			if gracz[1,i]=0 { draw_set_color(c_gray) }else
+			{ draw_set_color(kolor[i]) }
+			draw_rectangle(xx+1,yy+(i*64)+1,xx+32,yy+(i*64)+32,0)  
+			draw_set_color(c_black)
+			draw_line(xx+32,yy+(i*64),xx+32,yy+(i*64)+32)
+			
+			// imie
+			draw_rectangle(xx+160-6,yy+(i*64),xx+160-6,yy+(i*64)+32,1)
+			if not gracz[1,i]=0
+			{
+			if gracz[1,i]=1
+			{ 
+			draw_text(xx+160,yy+(i*64),gracz_imie[i]);      
+			}else
+			{ draw_text(xx+160,yy+(i*64),text('%pojkom%')); }
+			}
+			
+			// ping
+			
+			
+			// rasa
+			draw_set_color(c_black)
+			draw_set_alpha(1)
+			if wybrany = i
+			{
+			// losowa rasa
+			if (mouse_x>xx+16+((0)*100)-32) and (mouse_y>yy+(i*64)+32) and (mouse_x<xx+16+(0*100)) and (mouse_y<yy+(i*64)+32+32)
+		{ draw_set_color(c_dkgray) } else { draw_set_color(c_gray) }
+			draw_rectangle(xx+16+((0)*100)-32,yy+(i*64)+32,xx+16+(0*100),yy+(i*64)+32+32,0) 
+			draw_set_color(c_black)
+			draw_rectangle(xx+16+((0)*100)-32,yy+(i*64)+32,xx+16+(0*100),yy+(i*64)+32+32,1)      
+			draw_text(xx+16+((0)*100)-32,yy+(i*64)+32,'  ?');
+			
+			for (j=1; j<=6; j+=1)
+			{ // wybór rasy
+			if (mouse_x>xx+16+((j-1)*100)) and (mouse_y>yy+(i*64)+32) and (mouse_x<xx+16+(j*100)) and (mouse_y<yy+(i*64)+64)
+		{ draw_set_color(c_dkgray) } else { draw_set_color(c_gray) }
+			draw_rectangle(xx+16+((j-1)*100),yy+(i*64)+32,xx+16+(j*100),yy+(i*64)+32+32,0)
+			
+			draw_set_color(c_black)
+			draw_rectangle(xx+16+((j-1)*100),yy+(i*64)+32,xx+16+(j*100),yy+(i*64)+32+32,1)      
+			draw_text(xx+16+((j-1)*100)+1,yy+(i*64)+32,rasa[j]);
+			};
+			
+			}//else
+			{
+			if not gracz[1,i]=0
+			{
+			draw_set_color(c_black)
+			draw_text(xx+36,yy+(i*64),rasa[gracz[2,i]]);
+			}
+			}
+			
+			};
+	break;
+ };
+ };// czy wczytane
+ //draw_set_font(global.f_default);
+ draw_set_alpha(1); 
+ draw_set_halign ( fa_right )
+ draw_set_color(c_red);
+ draw_text(room_width,1,'ZamkiII: '+string(global.ver)+'#DemoArt:'+string(global.art_ver));

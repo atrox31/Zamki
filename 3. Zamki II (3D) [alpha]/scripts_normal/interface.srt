@@ -1,0 +1,228 @@
+//interface
+
+global.interface=object_add();
+object_event_add(global.interface,ev_create,0,'
+depth=-10;
+mana=1;
+mana_max=100;
+
+global.mouse_dx=0;
+global.mouse_dy=0;
+
+ikonki[0]=global.self1[0];
+ikonki[1]=global.snek1[0];
+ikonki[2]=global.self1[0];;
+ikonki[3]=global.snek1[0];;
+ikonki[4]=none;
+ikonki[5]=none;
+ikonki[6]=none;
+ikonki[7]=none;
+ikonki[8]=none;
+ikonki[9]=none;
+ikonki[10]=none;
+ikonki[11]=none;
+ikonki[12]=none;
+ikonki[13]=none;
+ikonki[14]=none;
+ikonki[15]=none;
+ikonki[16]=none;
+ikonki[17]=none;
+ikonki[18]=none;
+ikonki[19]=none;
+
+ai=0;
+');
+object_event_add(global.interface,ev_alarm,0,' // AI
+ alarm[0]=round(room_speed*ai);
+ var los;
+ los=random(100);
+ if (los>40) { exit; }else
+ { 
+	if (los<20)
+	{
+		a=instance_create(global.mapa_wys*64,round(global.mapa_szer/2)*64+32,global.unit); 
+		a.szyb=135; 
+		mana-=1; 
+		a.sprite="self1"; 
+		a.hp=100; 
+		a.kier=-1; 
+		a.gracz=2; 
+		a.zasieg=64*5;
+		a.czas_ataku=1;
+		a.atak=20;
+		a.poc_sprite=global.poc_szczala;
+		a.celx=a.x+(a.kier*64);
+		console_add("AI created self1");
+	}else{
+		a=instance_create(global.mapa_wys*64,round(global.mapa_szer/2)*64+32,global.unit); 
+		a.szyb=130;
+		mana-=1;
+		a.sprite="snek1"; 
+		a.hp=250; 
+		a.kier=-1; 
+		a.gracz=2; 
+		a.zasieg=-1;
+		a.czas_ataku=1.1;
+		a.atak=30;
+		a.celx=a.x+(a.kier*64);
+		console_add("AI created snek1");
+	}
+ }
+');
+object_event_add(global.interface,ev_step,ev_step_normal,'
+
+//////////////////
+
+if (mana<mana_max) { mana+=0.1 };
+// 3D mouse pos
+//global.mouse_dx=global._kamera.x-mouse_x+global.resolutionx/2;
+//global.mouse_dy=global._kamera.y-mouse_y+global.resolutiony/2;
+');
+object_event_add(global.interface,ev_draw,0,'
+//KURSOR x 250 y 350
+d3d_model_draw(global.baner[0],global.mouse_dx,global.mouse_dy+350,20,sprite_get_texture(global.s_baner[0],0));
+//INTERFACE
+d3d_set_hidden(false);
+d3d_transform_set_identity();
+d3d_transform_set_scaling(1,1,1);
+d3d_set_projection_ortho(0,0,global.resolutionx,global.resolutiony,0);
+
+//mana
+var i,j;  //500px
+j=1;
+for (i=0; i<=5; i+=1)
+{
+draw_sprite(global.s_mana2,0,688+i*100,-160+162)
+};
+
+for (i=1; i<=((mana*100)/(mana_max))*5; i+=1)
+{
+draw_sprite_part(global.s_mana,0,j,0,1,86,688+i,-160+162)
+j+=1;
+if ((i mod 100)=0) { j=1; };
+};
+
+//draw_sprite_ext(global.s_interface,0,0,0,global.resolutionx/1280,(global.resolutiony/256),0,c_white,1);
+draw_sprite_scale(global.s_interface,0,0,0,1,0.3,0,c_white,1);
+//ikonki
+//640, 25
+var xnaj,ynaj;
+	for(i=0; i<=9; i+=1)
+	{
+		for(j=0; j<=1; j+=1)
+		{
+				
+				xnaj=((640+(i*64))*(global.resolutionx/1280));
+				ynaj=((25+j*64)*(global.resolutiony/256))*0.3;
+		if(window_views_mouse_get_x()>xnaj)and(window_views_mouse_get_y()>ynaj)and(window_views_mouse_get_x()<xnaj+(64*(global.resolutionx/1280)))and(window_views_mouse_get_y()<ynaj+((64*(global.resolutiony/256))*0.3)) 
+		{
+			draw_set_color(c_white);
+			draw_set_alpha(1);
+			draw_sprite_scale(global.s_select,0,xnaj,ynaj,0.05,0.08,0,c_white,1);	
+		
+		};
+		//DEBUG IKONKI
+		draw_sprite_ext(ikonki[i+(j*10)],0,xnaj,ynaj,1,1,0,c_white,1);
+		draw_set_alpha(0.2);
+		draw_text(xnaj,ynaj,string(i+(j*10)));
+		};
+	};
+draw_set_color(c_red);
+ draw_set_halign ( fa_left ) ;
+ draw_set_alpha(1);
+draw_text(60,10,"FPS: "+string(fps));
+draw_text(60,30,"mouse_x: "+string(mouse_x)+" inter x: "+string(global._kamera.x));
+draw_text(60,50,"mouse_y: "+string(mouse_y)+" inter y: "+string(global._kamera.y));
+draw_text(60,80,"mouse_dx: "+string(global.mouse_dx)+" mouse_dy: "+string(global.mouse_dy));
+d3d_set_hidden(true);
+
+');
+
+object_event_add(global.interface,ev_mouse,ev_global_left_press,'
+//(640+(i*64))*(global.resolutionx/1280),(25+j*64)*(global.resolutiony/256)
+var xklik,ykilk;
+
+for(i=0; i<=9; i+=1)
+{
+	for(j=0; j<=1; j+=1)
+	{
+		xklik=(640+(i*64))*(global.resolutionx/1280);
+		yklik=((25+j*64)*(global.resolutiony/256))*0.3;
+		if(window_views_mouse_get_x()>xklik)and(window_views_mouse_get_y()>yklik)and(window_views_mouse_get_x()<xklik+(64*(global.resolutionx/1280)))and(window_views_mouse_get_y()<yklik+((64*(global.resolutiony/256))*0.3)) 
+		{
+		var a;
+			if ((i+(j*10))=0)
+			{ 
+				a=instance_create(64,round(global.mapa_szer/2)*64,global.unit); 
+				a.szyb=135; 
+				mana-=1; 
+				a.sprite="self1"; 
+				a.hp=100; 
+				a.kier=1; 
+				a.gracz=1; 
+				a.zasieg=64*5;
+				a.czas_ataku=1;
+				a.atak=20;
+				a.poc_sprite=global.poc_szczala;
+		a.celx=a.x+(a.kier*64);
+				
+			};
+			
+			if ((i+(j*10))=1)
+			{ 
+				a=instance_create(64,round(global.mapa_szer/2)*64,global.unit); 
+				a.szyb=130;
+				mana-=1;
+				a.sprite="snek1"; 
+				a.hp=250; 
+				a.kier=1; 
+				a.gracz=1; 
+				a.zasieg=-1;
+				a.czas_ataku=1.1;
+				a.atak=30;
+		a.celx=a.x+(a.kier*64);
+			};
+			////////////////////////////////
+			if ((i+(j*10))=2)
+			{ 
+				a=instance_create(global.mapa_wys*64,round(global.mapa_szer/2)*64,global.unit); 
+				a.szyb=135; 
+				mana-=1; 
+				a.sprite="self1"; 
+				a.hp=100; 
+				a.kier=-1; 
+				a.gracz=2; 
+				a.zasieg=64*5;
+				a.czas_ataku=1;
+				a.atak=20;
+				a.poc_sprite=global.poc_szczala;
+		a.celx=a.x+(a.kier*64);
+				
+			};
+			
+			if ((i+(j*10))=3)
+			{ 
+				a=instance_create(global.mapa_wys*64,round(global.mapa_szer/2)*64,global.unit); 
+				a.szyb=130;
+				mana-=1;
+				a.sprite="snek1"; 
+				a.hp=250; 
+				a.kier=-1; 
+				a.gracz=2; 
+				a.zasieg=-1;
+				a.czas_ataku=1.1;
+				a.atak=30;
+		a.celx=a.x+(a.kier*64);
+			};
+			
+		};
+		};
+};
+');
+
+object_event_add(global.interface,ev_mouse,ev_global_right_press,'
+
+');
+
+
+object_event_add(global.interface,ev_mouse,ev_global_left_release,'');

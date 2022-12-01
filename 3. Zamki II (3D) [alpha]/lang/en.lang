@@ -1,0 +1,18 @@
+%load00%Inicjalize 
+%load01%Core...
+%load02%Graphic...
+%load03%Fonts...
+%load04%Music...
+%load05%Audio...
+%load06%Settings
+%menu11%History
+%menu12%Skirmish
+%menu13%Multiplayer
+%menu14%Settings
+%menu15%Exit
+%menu21%Standard
+%menu22%Scenariusz
+%menu23%Back
+%menu31%New history
+%menu32%Wczytaj grê
+%menu33%Back

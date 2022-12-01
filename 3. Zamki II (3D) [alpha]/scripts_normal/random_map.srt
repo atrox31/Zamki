@@ -1,0 +1,82 @@
+//random_map.srt ( map_wys, map_szer, gory[100], doliny[100], ilosc_drzew[5%], map_seed )
+var map_wys, map_szer, gory, doliny, ilosc_drzew, map_seed;
+map_wys=argument[0];
+map_szer=argument[1];
+gory=argument[2];
+doliny=argument[3];
+ilosc_drzew=argument[4];
+map_seed=argument[5];
+
+if !(map_seed=-1) random_set_seed(map_seed);
+
+//TWOŻY TABLICE MAP
+// PRZECHOWUJE DANE WYSOKOŚCI TERENU, OMŻE SŁUŻYĆ DO BIERZĄCEJ EDYCJI TERENU
+if !(variable_global_exists("mapa_wysokosci"))global.mapa_wysokosci=ds_grid_create((map_wys),(map_szer));
+// MAPA ŚCIEŻEK PRZECHOWUJE CZY TEREN JEST ZDATNY DO CHODZENIA
+if !(variable_global_exists("mapa_sciezka"))global.mapa_sciezka=ds_grid_create((map_wys),(map_szer));
+// MAPOA OBIEKTÓW PRZECHOWUJE WSZYSTKIE OBIEKTY TAKIE JAK DRZEWA, MOSTY, ZNAKI, I INNE BAJERY. SŁUŻY DO PÓŹNIEJSZEOG ZAPISU MAPY
+if !(variable_global_exists("mapa_obiektow"))global.mapa_obiektow=ds_list_create();
+ 
+ //WYZEROWANIE TABLIC
+ds_grid_clear(global.mapa_wysokosci,0);
+ds_grid_clear(global.mapa_sciezka,0);
+ds_list_clear(global.mapa_obiektow);
+
+
+var i,j;
+repeat (gory) //wzniesienia
+{
+	ds_grid_add_disk(global.mapa_wysokosci,(random_range(1,map_wys)),(random_range(1,map_szer)),(1+irandom(4)),1);
+};
+
+
+repeat (doliny) //doliny
+{
+	ds_grid_add_disk(global.mapa_wysokosci,(random_range(1,map_wys)),(random_range(1,map_szer)),(1+irandom(2)),-1);
+};
+
+for (i=1; i<=((map_wys)-1); i+=1)
+{
+	for (j=1; j<=((map_szer)-1); j+=1)
+	{
+		//wygładzenie mapy
+		ds_grid_set(global.mapa_wysokosci,i,j,(ds_grid_get(global.mapa_wysokosci,i+1,j)+ds_grid_get(global.mapa_wysokosci,i,j+1)+ds_grid_get(global.mapa_wysokosci,i-1,j)+ds_grid_get(global.mapa_wysokosci,i,j-1))/4)
+		
+	};
+};
+//obliczenie ścieżek mapy
+for (i=1; i<=(map_wys)-1; i+=1)
+{
+	for (j=1; j<=round(map_szer)-1; j+=1)
+	{
+	if (ds_grid_get(global.mapa_wysokosci,i,j)>-1) { ds_grid_set(global.mapa_sciezka,i,j,1) }
+	global.sciezka[i]=round(map_szer/2);
+	
+	
+		if (random(100)<ilosc_drzew)and(ds_grid_get(global.mapa_wysokosci,i,j)>0) 
+		{
+		var tree,_typ;	
+			tree=instance_create(i*64,j*64,global.o_tree); 
+			_typ=choose(1,2);
+			tree.typ=_typ;			
+			ds_grid_set(global.mapa_sciezka,i,j,-1); 
+			ds_list_add(global.mapa_obiektow,"tree");
+			ds_list_add(global.mapa_obiektow,string(_typ));			
+			ds_list_add(global.mapa_obiektow,tree.x);
+			ds_list_add(global.mapa_obiektow,tree.y); 
+			ds_list_add(global.mapa_obiektow,tree.z); 
+		};
+	
+		if (ds_grid_get(global.mapa_wysokosci,i,j)<0)and(j=round(map_szer/2)) 
+		{
+		var mosten;		
+		mosten=instance_create(i*64,j*64+32,global.o_most);
+		ds_grid_set(global.mapa_sciezka,i,j,1); 
+		ds_list_add(global.mapa_obiektow,"most"); 			
+		ds_list_add(global.mapa_obiektow,1);	
+		ds_list_add(global.mapa_obiektow,mosten.x); 
+		ds_list_add(global.mapa_obiektow,mosten.y);
+		ds_list_add(global.mapa_obiektow,mosten.z); 
+		};
+	};
+};

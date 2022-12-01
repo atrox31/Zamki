@@ -1,0 +1,96 @@
+English
+
+&File
+Open OBJ
+Save D3D
+Open texture
+Render image
+Exit
+
+&Model
+Scale
+
+Rotate
+Rotation
+Rotations
+Velocity
+
+Normal vectors
+Reset
+
+&Options
+Show
+Idiom
+Grid
+Gizmo
+Model
+Model directory
+
+Texture
+Color
+Smooth
+
+Lighting
+Normal
+High
+
+Camera
+Horizontal
+Free
+
+Background color
+
+&Help
+Content
+Tutorial
+Visit-us
+Register
+About
+Speak portuguese
+
+Version
+Released
+Easily convert obj models to d3d (DirectX 3D), very used in creation of 3D games
+and
+Thanks
+Parts of this game are based in the work of Independent JPEG Group
+Warning: Not authorized the reproduction or distribution of this program, or any part if him.
+Brazil
+
+Type the scale
+of the object.
+Type the rotation velocity of the model
+Now restart the program to apply the idiom
+
+Register
+Type the 50 characters code to register the OBJ to D3D Converter v2.1
+Register process realized with sucess! Thanks for registered the OBJ to D3D Converter v2.1
+Name
+Type your name
+The program must be closed to finish the register.
+Error
+Incorrect code! Verify him and try again.
+
+Much more!
+You like to know others of our programs and games?
+
+Warn!
+The copy of your OBJ to D3D Converter v2.1 have expired and /or not is original!
+
+Model not founded!
+
+Open texture
+Image
+Image not founded!
+Open background
+
+Registered to
+EXPIRED - Acquire the complete version
+remaining models
+
+Save render
+
+Press the Ctrl key and move the mouse to adjust the camera
+Press the Ctrl key, click with the right button of the mouse and move him to adjust the camera
+
+You want to watch the online video tutorial of the OBJ to D3D Converter 2.1 in the YouTube?

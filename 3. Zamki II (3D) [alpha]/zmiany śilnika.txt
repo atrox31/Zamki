@@ -1,0 +1,9 @@
+#alpha 0.2 (2013-11-21, 2013-12-09)
+* klawisz ESC tak samo jak krzy¿yk zamyka grê
+* dodano ArtLAngIni(index) i text(%nazwa%) - funkcje wczytywania tekstu z pliku, + zamienia ona polskie znaki
+* dodano obs³uge animacji
+* dodano szyfrowanie plików czcionki
+* mocniejsze szyfrowanie
+
+#ALPHA 0.3
+*w pe³ni sprawna konsola, komendy w pliku commands.srt

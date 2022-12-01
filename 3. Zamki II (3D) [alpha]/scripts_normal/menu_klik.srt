@@ -1,0 +1,214 @@
+// menu_klik.srt
+if (global.wczytane=1)
+{
+if (global.opcje=1)
+	{
+		if (mouse_x>330)and(mouse_x<room_width-200)
+		{
+			switch (round((mouse_y+40)/30)-3)
+			{
+			case 1:
+				if global.ww<8
+				{  global.ww+=1; }else{ global.ww=1};
+				global.resolutionx=global.w[ global.ww];
+				global.resolutiony=global.h[ global.ww];
+				room_set_width( global.menu_room,global.resolutionx);
+				room_set_height( global.menu_room,global.resolutiony);
+			break;
+			
+			case 2:
+				global.fullscreen=!global.fullscreen; 
+				window_set_fullscreen(global.fullscreen); 
+			break;
+				
+			case 3:
+				global.hd=!global.hd;
+			break;
+			
+			case 4:
+				global.anim_texture=!global.anim_texture; 
+			break;
+			
+			case 5:
+				global.partic+=1; if (global.partic=3) {global.partic=0; };
+			break;
+			};
+			ini_open('game.ini');
+			ini_write_real('graph','resolutionx',global.resolutionx);
+			ini_write_real('graph','resolutiony',global.resolutiony);	
+			ini_write_real('graph','hd',global.hd);
+			ini_write_real('graph','fullscreen',global.fullscreen);
+			ini_write_real('graph','anim_texture',global.anim_texture);
+			ini_write_real('graph','partic',global.partic);
+			ini_close();
+			
+			opcje_text[1,1]=string(global.resolutionx)+'x'+string(global.resolutiony);
+			if (global.fullscreen) { opcje_text[1,2]=text('%opctak%'); }else{ opcje_text[1,2]=text('%opcnie%'); };
+			if (global.hd) { opcje_text[1,3]=text('%opcwys%'); }else{ opcje_text[1,3]=text('%opclow%'); };
+			if (global.anim_texture) { opcje_text[1,4]=text('%opcjon%'); }else{ opcje_text[1,4]=text('%opcoff%'); };
+			if (global.partic=2) { opcje_text[1,5]=text('%opcwys%'); }else{ if (global.partic=0) { opcje_text[1,5]=text('%opclow%');}else{ opcje_text[1,5]=text('%opcmed%') } };
+
+			
+			room_restart();
+		}
+	};
+if (global.opcje=2)
+	{
+		if (mouse_x>330)and(mouse_x<room_width-200)
+		{
+			switch (round((mouse_y+40)/30)-3)
+			{
+			case 1:
+				global.master+=10; if (global.master>100) { global.master=0; };
+			break;
+			
+			case 2:
+				global.music+=10; if (global.music>100) { global.music=0; };
+			break;
+				
+			case 3:
+				global.background_sound=!global.background_sound;
+			break;
+			};
+			ini_open('game.ini');
+			ini_write_real('audio','master',global.master);
+			ini_write_real('audio','music',global.music);	
+			ini_write_real('audio','background_sound',global.background_sound);
+			ini_close();
+			
+			if (global.background_sound) { opcje_text[2,3]=text('%opcjon%'); }else{ opcje_text[2,3]=text('%opcoff%'); }
+			opcje_text[2,1]=string(global.master)+"%";
+			opcje_text[2,2]=string(global.music)+"%";
+			//room_restart();
+		}
+	};
+	
+	if (global.opcje=3)
+	{
+		if (mouse_x>330)and(mouse_x<room_width-200)
+		{
+			switch (round((mouse_y+40)/30)-3)
+			{
+			case 1:
+				
+			break;
+			
+			case 2:
+				
+			break;
+				
+			case 3:
+				
+			break;
+			
+			case 4:
+				
+			break;
+			
+			case 5:
+				
+			break;
+			};
+			ini_open('game.ini');
+			ini_write_real('graph','resolutionx',global.resolutionx);
+			ini_write_real('graph','resolutiony',global.resolutiony);	
+			ini_write_real('graph','hd',global.hd);
+			ini_write_real('graph','fullscreen',global.fullscreen);
+			ini_write_real('graph','anim_texture',global.anim_texture);
+			ini_write_real('graph','partic',global.partic);
+			ini_close();
+			room_restart();
+		}
+	};
+	
+	if (global.opcje=4)
+	{
+		if (mouse_x>330)and(mouse_x<room_width-200)
+		{
+			switch (round((mouse_y+40)/30)-3)
+			{
+			case 1:
+				
+			break;
+			
+			case 2:
+				
+			break;
+				
+			case 3:
+				
+			break;
+			
+			case 4:
+				
+			break;
+			
+			case 5:
+				
+			break;
+			};
+			ini_open('game.ini');
+			ini_write_real('graph','resolutionx',global.resolutionx);
+			ini_write_real('graph','resolutiony',global.resolutiony);	
+			ini_write_real('graph','hd',global.hd);
+			ini_write_real('graph','fullscreen',global.fullscreen);
+			ini_write_real('graph','anim_texture',global.anim_texture);
+			ini_write_real('graph','partic',global.partic);
+			ini_close();
+			room_restart();
+		}
+	};
+		
+	if (global.opcje=5)
+		{for (i=1; i<=6; i+=1)
+		{
+		// gracz
+			if (mouse_x>xx+1) and (mouse_y>yy+(i*64)+1) and (mouse_x<xx+32) and (mouse_y<yy+(i*64)+32)
+			{
+			wybrany=0
+			if gracz[1,i]=2
+			{
+			gracz[1,i]=0
+			}else
+			{
+			if gracz[1,i]=1
+			{
+			gracz[1,i]=2
+			}else
+			{
+			gracz[1,i]=1
+			}
+			}
+			}
+		// rasa
+		if wybrany<>0
+		{
+		for (j=1; j<=6; j+=1)
+		{ 
+		if (mouse_x>xx+16+((j-1)*100)) and (mouse_y>yy+(i*64)+32) and (mouse_x<xx+16+(j*100)) and (mouse_y<yy+(i*64)+64)
+		{ 
+			if i=wybrany
+			{
+			gracz[2,i]=j
+			wybrany=0
+			break;
+			}
+			}
+		}
+			if (mouse_x>xx+16+((0)*100)-32) and (mouse_y>yy+(i*64)+32) and (mouse_x<xx+16+(0*100)) and (mouse_y<yy+(i*64)+32+32)
+			{ gracz[2,i]=0; wybrany=0; }
+			}
+			
+			if (mouse_x>xx+36) and (mouse_y>yy+(i*64)) and (mouse_x<xx+160-6) and (mouse_y<yy+(i*64)+32)
+			{
+			if not gracz[1,i]=0
+			{
+				wybrany=i
+				break;
+			}   
+			}//else
+			//{ wybrany=0 }
+			
+			};
+		};//do opcja = 5
+}

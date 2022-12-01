@@ -1,0 +1,7 @@
+1.0 ALPHA -> 1.1 BETA
+- dodano t³o pod pole bitwy
+- naprawiono ataki paru jednostek
+- naprawiono tryb 2 graczy
+- drobna poprawa SI ( jeszcze pracujê )
+- drobna poprawa grafiki
+- dodano deszcz

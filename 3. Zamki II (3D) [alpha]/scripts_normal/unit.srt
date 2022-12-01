@@ -1,0 +1,223 @@
+//unit.srt
+global.unit=object_add();
+object_event_add(global.unit,ev_create,0,'
+	depth=1;
+	z=ds_grid_get(global.mapa_wysokosci,round(x/64),round(y/64))*20;
+	zz=z
+	celx=x;
+	cely=y;
+	alarm[0]=20; //twożenie watermarków pod wodą oraz odejmowanie hp
+	image_index=0;	//klatka animacji
+	hp_max=1;	
+	alarm[1]=1;
+	ttt=none;
+	stan=-1;
+	alarm[2]=100;
+	animacja=0;
+	cel_ataku=noone;
+	zasieg_wykrywania=200;
+	ladowanie=0;
+	atak=0;
+	obszar=1;
+	poc_sprite=none;
+	image_speed=0;
+	
+	depth=round(y/64);
+	alarm[3]=200; //sprawdzenei czy się zacią
+	czyx=x;
+	czyy=y;
+');
+object_event_add(global.unit,ev_alarm,1,' // inicjacja początkowa
+	hp_max=hp;
+	szyb_max=szyb;
+	
+');
+object_event_add(global.unit,ev_alarm,3,' // sprawdzenie czy się zacią
+	alarm[3]=200;
+	
+	if ((czyx=x)&&(czyy=y)) { stan=1; kier=-kier; }
+	
+	czyx=x;
+	czyy=y;
+');
+object_event_add(global.unit,ev_alarm,2,' // zmiana stanu
+	stan=0;
+');
+object_event_add(global.unit,ev_alarm,4,' // zmiana kierunku
+	kier=-kier;
+');
+object_event_add(global.unit,ev_alarm,0,'
+	// woda
+	alarm[0]=20;
+	if (z<-10) //pod woda
+	{
+	instance_create(x,y,global.o_watermark);
+	if (z<-20) { hp-=5; };
+	};
+');
+object_event_add(global.unit,ev_step,ev_step_normal,'
+	//zachowania srodowiskowe niezmienne
+	if (hp<=0) { instance_destroy() };
+	zz=ds_grid_get(global.mapa_wysokosci,round(celx/64),round(cely/64))*20;
+	//animacja
+	image_index+=1*(szyb/fps)/2;
+	if (sprite_get_number(variable_global_array_get(sprite,stan))>60) { image_index=0; };
+	//chodzenie
+	switch (stan)
+	{
+		case -1:
+			animacja=0;			
+			kier=-kier;
+			alarm[2]=60;
+			alarm[4]=120
+			stan=-2;
+		break;
+		
+		case 0:	//szuka
+			if (instance_exists(global.unit))
+			{
+				var cel,tx,ty;
+				tx=x;
+				ty=y;
+				x=-1000;
+				y=-1000;
+				cel=instance_nearest(tx,ty ,global.unit);
+				x=tx;
+				y=ty;
+				
+				if ((cel.gracz!=gracz)and(point_distance(x,y,cel.x,cel.y)<zasieg_wykrywania))
+				{
+					cel_ataku=cel;
+					animacja=0;
+					stan=2;
+					
+				}else
+				{ 
+					stan=1;
+					
+				};
+			};
+		break;
+		
+		case 1:	//walk
+		animacja=2;
+	
+		if (x<celx) {x+=szyb/room_speed};
+		if (x>celx) {x-=szyb/room_speed};
+	
+		if (y<cely) {y+=szyb/room_speed};
+		if (y>cely) {y-=szyb/room_speed};
+	
+		if (y=(global.mapa_szer/2)*64)
+		{
+			zz=10;
+		}
+		else
+		{
+		if (z<zz) {z+=abs(zz-z)/(room_speed*1.3)};
+		if (z>zz) {z-=abs(zz-z)/(room_speed*1.3)};
+	
+		}
+	
+		if (abs(celx-x)<=szyb/room_speed)and(abs(cely-y)<=szyb/room_speed)//(celx=x)and(cely=y)
+		{
+			var tempcelx,tempcely;
+			tempcelx=64*kier;
+			tempcely=choose(-64,0,+64);
+			if ((tempcely+y<global.mapa_szer*64-64)&&(tempcely+y>64))
+			{
+				if ((tempcelx+x>0)&&(tempcelx+x<global.mapa_wys*64))
+				{
+					if (ds_grid_get(global.mapa_wysokosci,round((celx+tempcelx)/64),round((y+tempcely)/64))>-1)
+					{
+						celx+=tempcelx;
+						cely+=tempcely;
+						stan=0;
+						console_add("");
+					}else{ 
+					if (cely+tempcely=(global.mapa_szer/2)*64)
+						{
+							celx+=64*kier;
+							z=10;
+						}else{
+						stan=-1;
+						}
+					};	
+				}else{ kier=-kier; };
+			}
+			
+			
+		};
+		
+		break;	
+		
+		case 2:	//przygotowanie do ataku
+			alarm[2]=100;
+			animacja=2;
+			if (instance_exists(cel_ataku))
+			{
+				if (zasieg=-1)//wrecz
+				{
+				if (x<cel_ataku.x) {x+=szyb/room_speed};
+				if (x>cel_ataku.x) {x-=szyb/room_speed};
+				if (y<cel_ataku.y) {y+=szyb/room_speed};
+				if (y>cel_ataku.y) {y-=szyb/room_speed};
+				if (z<zz) {z+=abs(zz-z)/(room_speed*1.3)};
+				if (z>zz) {z-=abs(zz-z)/(room_speed*1.3)};
+				direction=point_direction(xprevious,yprevious,x,y)
+				if ((direction>90)&&(direction<270)) { kier=-1 }else{ kier=1 };
+			 
+				if (abs(cel_ataku.x-x)<=szyb/room_speed)and(abs(cel_ataku.y-y)<=szyb/room_speed)//(celx=x)and(cely=y)
+				{ stan=3 }
+				}else{ //szczela
+					stan=3;	
+				};
+			};			
+		break;
+		
+		case 3:  //atak
+		if (instance_exists(cel_ataku))
+		{
+			animacja=1;
+			ladowanie += 1;
+			if (ladowanie>=czas_ataku*room_speed) 
+			{
+				ladowanie=0;
+				var poc;
+				poc=instance_create(x,y,global.pocisk)
+				poc.direction=point_direction(x,y,cel_ataku.x,cel_ataku.y);
+				poc.cx=cel_ataku.x;
+				poc.cy=cel_ataku.y;
+				poc.speed=1;
+				poc.sprite_index=poc_sprite;
+				poc.cel=cel_ataku;
+				poc.atak=atak;
+				poc.obszar=obszar;
+				poc.z=z;
+				poc.zasieg=zasieg;
+			};
+		}else{
+			alarm[2]=30;
+			stan=-1;
+		};
+		break;
+		
+	};
+');
+object_event_add(global.unit,ev_draw,0,'
+if not((x>round(global._kamera.x)-(500))and(x<round(global._kamera.x)+(500))){ exit; }else{
+	var ttt;
+	draw_set_alpha(1);
+	
+	ttt=sprite_get_texture(global.watermark[0],0)
+	if gracz=1 draw_set_color(c_red) else draw_set_color(c_blue)
+	//d3d_draw_floor(x+32,y+32,z+1,x-32,y-32,z+1,ttt,1,1);
+	
+	ttt=sprite_get_texture(variable_global_array_get(sprite,animacja),image_index)
+	draw_set_color(c_white)
+	d3d_draw_wall(x-32,y,z,x+32,y,z+64,ttt,kier,-1);	
+	//
+	d3d_draw_wall(x-16,y,z+64,x+16,y,z+30+(64*(hp/hp_max)),sprite_get_texture(global.inter_unit[1],0),1,-1);
+	d3d_draw_wall(x-16,y,z+64,x+16,y,z+30+64,sprite_get_texture(global.inter_unit[0],0),1,-1);
+};
+');

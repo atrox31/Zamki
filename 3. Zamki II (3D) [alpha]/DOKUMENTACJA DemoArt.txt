@@ -1,0 +1,206 @@
+﻿DOKUMENTACJA
+
+		Skrypty DemoArt
+
+	ArtSprite( nazwa_pliku , numer klatek , przezroczyste , rozmyte , xsrodek , ysrodek )  -> zwraca id obrazka <*.png> & <*.gif> !!
+	ArtSkrypt (nazwa pliku) -> zwraca kod z pliku
+	ArtAudio ( nazwa_pliku ) -> zwraca id pliku muzycznego
+	ArtRozdzielczosc ( wysokosc, szerokosc ) <- zmienia rozdzielczość
+	ArtDeszyfr ( string ) -> zwraca zaszybrowane aub zdeszyfrowanw informacje
+	Draw_self() <> rysuje sprita
+	ArtLangIni ( index ) - wczytuje zmienne językowe do globalnej tablicy  index(pl, en)
+	text( %nazwa% ) -> zwraca string'a z podanego kodu
+		Dodatkowe Skrypty GML
+	
+	FONTS
+	font_add_sprite( spr , first , prop , sep )
+	//spr (sprite): The sprite your font is contained in. This need to be in ASCII order.
+	//first (character): The first character of your font. Mine starts at Space, so I have ord(" "). You might have only digits, so this would be ord("0")
+	//prop (boolean): If the font is proportional. Make this 1 or true if it is a multi-width fonts. Space characters are a bit wonky with this set to true.
+	//sep (int): Separation between characters. I used -1 for no spacing (it's all in the sprite).
+
+d3d_draw_sprite_ext
+var sprite, subimage, x_coord, y_coord, x_scale, y_scale, rotation, color, alpha; 	
+
+d3d_draw_text
+var x_coord, y_coord, str; 
+
+
+**      draw_texture_quad(tex, x1, y1, x2, y2, x3, y3, x4, y4, step)
+**
+**  Arguments:
+**      tex         texture to draw (sprite/background_get_texture())
+**      x1,y1...    the region to draw into
+**      step        number of steps for drawing; 1-n the bigger, the smoother less distorted result
+**
+collision_line_first(x1,y1,x2,y2,object,prec,notme)
+**      x1,y2       first point on collision line
+**      x2,y2       second point on collision line
+**      object      which objects to look for, or keyword all
+**      prec        if true, use precise collision checking
+**      notme       if true, ignore the calling instance
+**  Returns:
+**      the instance id of the given object colliding with the
+**      given line and closest to the first given point,
+**      or keyword noone if no instance is found
+
+collision_ellipse_list(x1,y1,x2,y2,obj,prec,notme)
+**
+**  Arguments:
+**      x1,y1       corner of the collision ellipse (filled)
+**      x2,y2       opposite corner of the collision ellipse (filled)
+**      obj         object to check for collision
+**      prec        set to true for precise collision checking
+**      notme       set to true to ignore the calling instance
+**
+**  Returns:
+**      a ds_list id, or keyword noone if no instances are found
+
+collision_circle_list(x,y,radius,obj,prec,notme)
+**
+**  Arguments:
+**      x,y         center of the collision circle (filled)
+**      radius      radius of the collision circle (filled)
+**      obj         object to check for collision
+**      prec        set to true for precise collision checking
+**      notme       set to true to ignore the calling instance
+**
+**  Returns:
+**      a ds_list id, or keyword noone if no instances are found
+
+sprite_replace_color(sprite,oldcolor,newcolor)
+**
+**  Arguments:
+**      sprite      sprite to change
+**      oldcolor    color that will be replaced
+**      newcolor    color used as replacement
+**
+**  Returns:
+**      (-1) on error
+
+point_line_distance(x1,y1,x2,y2,x3,y3,segment)
+**
+**  Arguments:
+**      x1,y1      first end point of line
+**      x2,y2      second end point of line
+**      x3,y3      point to measuring from
+**      segment    set to true to limit to the line segment
+**
+**  Returns:
+**      the distance from the given point to a given line
+
+motion_blur(length,direction)
+**
+**  Arguments:
+**      length          length of blur
+**      direction       direction of the blur
+**
+**  Returns:
+**      nothing
+
+map_sprites(ds_map)
+**
+**  Arguments:
+**      ds_map      map to which all sprites are loaded
+**
+**  Returns:
+**      nothing, but fills the map with {key=name, val=index} pairs
+
+map_sounds(ds_map,ex_sound)
+**
+**  Arguments:
+**      ds_map      map to which all sprites are loaded
+**      ex_sound    filename from an external sound
+**
+**  Returns:
+**      nothing, but fills the map with {key=name, val=index} pairs
+
+map_objects(ds_map)
+**
+**  Arguments:
+**      ds_map      map to which all objects are loaded
+**
+**  Returns:
+**      nothing, but fills the map with {key=name, val=index} pairs
+
+hex_to_dec(hex)
+**
+**  Arguments:
+**      hex     a string of hexadecimal digits, four bits per character
+**
+**  Returns:
+**      a non-negative integer
+
+hex_to_color(hex)
+**
+**  Arguments:
+**      hex     a string of hexadecimal digits 
+**              representing a color in RRGGBB format
+**
+**  Returns:
+**      a color generated from the given hexadecimal color code
+
+draw_sprite_wave_ext(sprite,subimage,x,y,axis,wavelength,amplitude,
+**                       phase,xscale,yscale,blend,alpha)
+**
+**  Arguments:
+**      sprite          sprite index
+**      subimage        sprite subimage
+**      x,y             position in room to draw sprite
+**      axis            0 = horizontal wave, 1 = vertical wave
+**      wavelength      length of wave in pixels, crest to crest
+**      amplitude       half the height of wave in pixels, crest to trough
+**      phase           wave position offset, vary to animate wave
+**      xscale,yscale   scaling of sprite along x and y axes
+**      blend           color to blend with sprite
+**      alpha           alpha used to draw sprite
+**
+**  Returns:
+**      nothing
+
+draw_sprite_wave(sprite,subimage,x,y,axis,wavelength,amplitude,phase)
+**
+**  Arguments:
+**      sprite          sprite index
+**      subimage        sprite subimage
+**      x,y             position in room to draw sprite
+**      axis            0 = horizontal wave, 1 = vertical wave
+**      wavelength      length of wave in pixels, crest to crest
+**      amplitude       half the height of wave in pixels, crest to trough
+**      phase           wave position offset, vary to animate wave
+**
+**  Returns:
+**      nothing
+
+color_mix(color1,color2)
+**
+**  Arguments:
+**      color1      first color
+**      color2      second color
+**
+**  Returns:
+**      a 50/50 mixture of the two given colors
+
+collision_rectangle_list(x1,y1,x2,y2,obj,prec,notme)
+**
+**  Arguments:
+**      x1,y1       first corner of the collision rectangle (filled)
+**      x2,y2       opposite corner of the collision rectangle (filled)
+**      obj         object to check for collision
+**      prec        set to true for precise collision checking
+**      notme       set to true to ignore the calling instance
+**
+**  Returns:
+**      a ds_list id, or keyword noone if no instances are found
+
+collision_line_list(x1,y1,x2,y2,obj,prec,notme)
+**
+**  Arguments:
+**      x1,y1       start point of the collision line
+**      x2,y2       end point of the collision line
+**      obj         object to check for collision
+**      prec        set to true for precise collision checking
+**      notme       set to true to ignore the calling instance
+**
+**  Returns:
+**      a ds_list id, or keyword noone if no instances are found

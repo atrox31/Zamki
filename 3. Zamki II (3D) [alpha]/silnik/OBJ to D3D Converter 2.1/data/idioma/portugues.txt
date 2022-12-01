@@ -1,0 +1,96 @@
+Português
+
+&Arquivo
+Abrir OBJ
+Salvar D3D
+Abrir textura
+Renderizar imagem
+Sair
+
+&Modelo
+Escala
+
+Rotacionar
+Rotação
+Rotações
+Velocidade
+
+Vetores normais
+Resetar
+
+&Opções
+Mostrar
+Idioma
+Grade
+Gizmo
+Modelo
+Diretório do modelo
+
+Textura
+Cor
+Suavizar
+
+Iluminação
+Normal
+Forte
+
+Câmera
+Horizontal
+Livre
+
+Cor de fundo
+
+A&juda
+Conteúdo
+Tutorial
+Visite-nos
+Registrar
+Sobre
+Falar português
+
+Versão
+Lançado
+Facilmente converta modelos obj para d3d (DirectX 3D), muito usado na criação de jogos 3D
+e
+Agradecimentos
+Partes deste jogo se baseia no trabalho do Independent JPEG Group
+Aviso: Não autorizada a reprodução ou distribuição deste programa, ou qualquer parte dele.
+Brasil
+
+Digite a escala
+do objeto.
+Digite a velocidade da rotação do modelo
+Agora reinicie o programa para aplicar o idioma
+
+Registro
+Digite o código de 50 caracteres para registrar o OBJ to D3D Converter v2.1
+Processo de registro realizado com sucesso! Obrigado por ter registrado o OBJ to D3D Converter v2.1
+Nome
+Digite seu nome
+O programa precisa ser fechado para concluir o registro.
+Erro
+Código incorreto! Verifique-o e tente novamente.
+
+Muito mais!
+Gostaria de conhecer outros de nossos programas e jogos?
+
+Aviso!
+A cópia do seu OBJ to D3D Converter v2.1 já expirou e/ou não é original!
+
+Modelo não encontrado!
+
+Abrir textura
+Imagem
+Imagem não encontrada!
+Abrir fundo
+
+Registrado para
+EXPIRADO - Adquira a versão completa
+modelos restantes
+
+Salvar renderização
+
+Pressione a tecla Ctrl e mova o mouse para ajustar a camera
+Pressione a tecla Ctrl, clique com o botao direito do mouse e mova-o para ajustar a camera
+
+Deseja assistir o tutorial em vídeo online do OBJ to D3D Converter 2.1 no YouTube?

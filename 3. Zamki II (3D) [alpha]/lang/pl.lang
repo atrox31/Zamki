@@ -1,0 +1,57 @@
+%load00%Inicjacja 
+%load01%Silnika...
+%load02%Grafiki...
+%load03%Czcionek...
+%load04%Muzyki...
+%load05%DŸwiêków...
+%load06%Ustawieñ...
+%menu11%Historia
+%menu12%Potyczki
+%menu13%Wielu graczy
+%menu14%Ustawienia
+%menu15%Wyjœcie
+%menu21%Standardowa
+%menu22%Scenariusz
+%menu23%Powrót
+%menu31%Nowa historia
+%menu32%Wczytaj grê
+%menu33%Powrót
+%menu45%Powrót
+%opcj10%Obraz
+%opcj11%Rozdzielczosæ:
+%opcj12%Pe³ny ekran:
+%opcj13%Rozdzielczoœæ tekstur:
+%opcj14%Animacja otoczenia:
+%opcj15%Efekty cz¹steczek:
+%opcj20%DŸwiêk
+%opcj21%Ogólna g³oœnoœæ:
+%opcj22%Muzyka:
+%opcj23%DŸwiêki otoczenia:
+%opcj30%Gra
+%opcj31%Zawsze pokazuj paski kondycji:
+%opcj32%Kolory dru¿yny:
+%opcj40%LAN / Internet
+%opcj41%Nick:
+%opcj42%Port gry:
+%opcj43%Wykonaj test po³¹czenia:
+%opcj44%Wersja gry:
+%pojwol%Otwarte
+%pojkom%Gracz SI
+%rasa00%Losowo
+%rasa01%Rasa 1
+%rasa02%Rasa 2
+%rasa03%Rasa 3
+%rasa04%Rasa 4
+%rasa05%Rasa 5
+%start1%Wczytana mapa
+%start2%Losowa mapa
+%start0%Start
+%opctak%Tak
+%opcnie%Nie
+%opcjon%W³¹czone
+%opcoff%Wy³¹czone
+%opcwys%Wysoka
+%opcmed%Œrednie
+%opclow%Niska
+%conwro%B³¹d! Liczba argumentów przekracza dopuszczaln¹ d³ugoœæ
+%conunk%B³¹d! Komenda nie rozpoznana

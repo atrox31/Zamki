@@ -1,0 +1,5 @@
+// menu_step.srt
+if (global.wczytane=1)
+{
+
+}

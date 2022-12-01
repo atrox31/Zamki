@@ -1,0 +1,68 @@
+//mils.srt
+/*
+global.OBJEKT=object_add();
+object_event_add(global.OBJEKT,ev_create,0,'');
+object_event_add(global.OBJEKT,ev_alarm,0,'');
+object_event_add(global.OBJEKT,ev_step,ev_step_normal,'');
+object_event_add(global.OBJEKT,ev_draw,0,'');
+object_event_add(global.OBJEKT,ev_mouse,ev_global_left_press,'');
+object_event_add(global.OBJEKT,ev_mouse,ev_global_right_press,'');
+object_event_add(global.OBJEKT,ev_mouse,ev_global_left_release,'');
+*/
+global.o_tree=object_add();
+object_event_add(global.o_tree,ev_create,0,'
+depth=round(y/64)
+
+z=ds_grid_get(global.mapa_wysokosci,round(x/64),round(y/64))*20;
+rotation=random(360);
+');
+object_event_add(global.o_tree,ev_alarm,0,'
+
+');
+object_event_add(global.o_tree,ev_step,ev_step_normal,'
+
+');
+object_event_add(global.o_tree,ev_draw,0,'
+if not ((x/64>round(global._kamera.x/64)-(12))and(x/64<round(global._kamera.x/64)+(12))) { exit; }else
+{
+texture_set_interpolation(1);
+texture_set_repeat(1);
+draw_set_color(c_white);
+
+d3d_transform_add_translation(-x,-y,-z);
+d3d_transform_add_rotation_z(rotation);
+d3d_transform_add_translation(x,y,z);
+d3d_model_draw(global.tree_model[typ],x,y,z,sprite_get_texture(global.tree_tex[typ],0));
+d3d_transform_set_identity();
+}
+');
+object_event_add(global.o_tree,ev_mouse,ev_global_left_press,'
+');
+
+object_event_add(global.o_tree,ev_mouse,ev_global_right_press,'
+');
+object_event_add(global.o_tree,ev_mouse,ev_global_left_release,'');
+console_add("mils/tree.srt...OK");
+
+global.o_watermark=object_add();
+object_event_add(global.o_watermark,ev_create,0,'alpha=1; scale=0.2; anim=0;');
+object_event_add(global.o_watermark,ev_alarm,0,'');
+object_event_add(global.o_watermark,ev_step,ev_step_normal,'
+scale+=0.1;
+if (scale>3) { alpha-=0.1 if (alpha<0) { instance_destroy(); }; };
+anim+=1;
+');
+object_event_add(global.o_watermark,ev_draw,0,' 
+if not ((x>round(global._kamera.x/64)-(11*64))and(x<round(global._kamera.x/64)+(11*64))){ exit; }else{
+draw_set_alpha(alpha)
+d3d_draw_floor(x-(16*scale),y-(16*scale),-10,x+(16*scale),y+(16*scale),-10,sprite_get_texture(global.watermark[global.hd],anim),1,1)
+draw_set_alpha(1);
+}
+');
+
+global.o_most=object_add();
+object_event_add(global.o_most,ev_create,0,'z=-10; depth=1000');
+object_event_add(global.o_most,ev_draw,0,'
+if (x>round(global._kamera.x)-(11*64))and(x<round(global._kamera.x)+(11*64))
+d3d_model_draw(global.most_model,x,y,z,sprite_get_texture(global.s_most,0));
+');

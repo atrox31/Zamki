@@ -1,0 +1,9 @@
+ERROR in
+action number 1
+of  Step Event
+for object obj_controller:
+
+In script step:In script step_mode_101:Error in code at line 195:   
+if max(abs(global.mousex-tx1),abs(global.mousey-ty1))<dmin {at position 27: Unknown variable tx1
+
+

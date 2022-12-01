@@ -1,0 +1,103 @@
+//inipotyczka ( nazwa_mapy ).srt
+
+/////////////////////////////GENEROWANIE LOSOWEJ MAPY
+console_add("inicjacja mapy: "+string(global.mapa_gra));
+if (global.mapa_gra="random")
+{
+	console_add("Seed mapy:"+string(random_get_seed()));
+	execute_string( ArtSkrypt("random_map"),global.mapa_wys, global.mapa_szer, global.mapa_szer, global.mapa_wys, 20, -1 );
+}else{//wczytanie mapy
+var plik,maptype;
+
+plik=file_text_open_read("maps/"+string(global.mapa_gra)+".map");
+
+maptype=file_text_read_string(plik);
+file_text_readln(plik);
+global.mapa_wys=file_text_read_real(plik);
+file_text_readln(plik);
+global.mapa_szer=file_text_read_real(plik);
+file_text_readln(plik);
+
+if !(variable_global_exists("mapa_wysokosci")) { global.mapa_wysokosci=ds_grid_create((global.mapa_wys),(global.mapa_szer)); }else{ ds_grid_resize(global.mapa_wysokosci,(global.mapa_wys),(global.mapa_szer)) }
+// MAPA åCIEØEK PRZECHOWUJE CZY TEREN JEST ZDATNY DO CHODZENIA
+if !(variable_global_exists("mapa_sciezka")) { global.mapa_sciezka=ds_grid_create((global.mapa_wys),(global.mapa_szer)); }else{ ds_grid_resize(global.mapa_sciezka,(global.mapa_wys),(global.mapa_szer)) }
+// MAPOA OBIEKT”W PRZECHOWUJE WSZYSTKIE OBIEKTY TAKIE JAK DRZEWA, MOSTY, ZNAKI, I INNE BAJERY. S£UØY DO P”èNIEJSZEOG ZAPISU MAPY
+if !(variable_global_exists("mapa_obiektow")) { global.mapa_obiektow=ds_list_create(); };
+// lista obiektÛw mapy
+if !(variable_global_exists("mapa_jednostek")) { global.mapa_jednostek=ds_list_create(); };
+ //lista jednostek
+
+ //WYZEROWANIE TABLIC
+ds_grid_clear(global.mapa_wysokosci,0);
+ds_grid_clear(global.mapa_sciezka,0);
+ds_list_clear(global.mapa_obiektow);
+ds_list_clear(global.mapa_jednostek);
+
+ds_grid_read(global.mapa_wysokosci,file_text_read_string(plik))
+file_text_readln(plik);
+ds_grid_read(global.mapa_sciezka,file_text_read_string(plik))
+file_text_readln(plik);
+ds_list_read(global.mapa_obiektow,file_text_read_string(plik))
+file_text_close(plik)
+//ds_list_read(global.mapa_jednostek,file_text_read_string(plik))
+//file_text_close(plik)
+
+var i;
+	for (i=0; i<=ds_list_size(global.mapa_obiektow)-5; i+=5;)
+	{
+	//console_add(string(ds_list_find_value(global.mapa_obiektow,i))+" | "+string(ds_list_find_value(global.mapa_obiektow,i+1))+" | "+string(ds_list_find_value(global.mapa_obiektow,i+2))+" | "+string(ds_list_find_value(global.mapa_obiektow,i+3))+" | "+string(ds_list_find_value(global.mapa_obiektow,i+4)))
+	var obj;
+		obj=instance_create(ds_list_find_value(global.mapa_obiektow,i+2),ds_list_find_value(global.mapa_obiektow,i+3),variable_global_get(string("o_"+string(ds_list_find_value(global.mapa_obiektow,i))))); 
+		obj.typ=real(ds_list_find_value(global.mapa_obiektow,i+1));
+		obj.z=real(ds_list_find_value(global.mapa_obiektow,i+4));
+	/*
+		switch ds_list_find_value(global.mapa_obiektow,i)
+		{
+			case "tree":
+			var tempx,tempy,temprodzaj;
+			temprodzaj=ds_list_find_value(global.mapa_obiektow,i+1)
+			tempx=ds_list_find_value(global.mapa_obiektow,i+2)
+			tempy=ds_list_find_value(global.mapa_obiektow,i+3)
+			tree=instance_create(tempx,tempy,variable_global_get("o_tree")); 
+			tree.typ=real(temprodzaj);			
+			break;
+			
+			case "most":
+			var tempx,tempy,temprodzaj;
+			temprodzaj=ds_list_find_value(global.mapa_obiektow,i+1)
+			tempx=ds_list_find_value(global.mapa_obiektow,i+2)
+			tempy=ds_list_find_value(global.mapa_obiektow,i+3)
+			tree=instance_create(tempx,tempy,variable_global_get("o_tree")); 
+			break;*/
+		};
+	
+for (i=1; i<=global.mapa_wys; i+=1)
+global.sciezka[i]=round(global.mapa_szer/2);
+}; //<- wczytanie mapy
+/////////////////////////////////////////////////////////zmieniÊ    /|\
+
+/*if (global.debug)
+{
+var i;
+console_add("Lista obiektÛw:"+string(ds_list_size(global.mapa_obiektow)/3));
+	for (i=0; i<=ds_list_size(global.mapa_obiektow)-4 i+=4;)
+	{
+	console_add("object_add["+string(i)+"]:(id:"+string(ds_list_find_value(global.mapa_obiektow,i))+ "| x:"+string(ds_list_find_value(global.mapa_obiektow,i+1))+ "| y:"+string(ds_list_find_value(global.mapa_obiektow,i+2))+")");
+	};
+	console_save();
+}; */
+// praktycznie start mapy
+room_speed=60;
+
+global._interface=instance_create(0,0,global.interface);
+global._mapa=instance_create(0,0,global.mapa);
+global._woda=instance_create(0,0,global.woda);
+global._kamera=instance_create(0,0,global.kamera);
+
+
+//zamek DEBUG
+var a,b;
+a=instance_create(64,round(global.mapa_szer/2)*64+32,global.o_zamek);
+b=instance_create(global.mapa_wys*64,round(global.mapa_szer/2)*64+32,global.o_zamek);
+a.angle=270;
+b.angle=90;
